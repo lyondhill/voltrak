@@ -4,4 +4,6 @@ class Plant
   field :name
 
   has_many :frames
+
+  
 end
