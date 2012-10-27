@@ -22,8 +22,6 @@ if Rails.env.development?
     end
   end
 
-  require 'highline/import'
-  require 'csv'
   require 'rainbow'
 
   Sickill::Rainbow.enabled = true
