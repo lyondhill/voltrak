@@ -37,13 +37,15 @@ if Rails.env.development?
   # end
 
   ###  -- BEGIN SEEDING DATABASE --
-  puts "\n\n\n--- Begin Seeding Database ---".color(:cyan).underline
+  puts "\n\n\n"
+  puts "--- Begin Seeding Database ---".color(:cyan).underline
+  puts "\n"
 
-  puts "generating plants...............".color(:white)
+  print "generating plants................".color(:white)
   p = Plant.create(name: "Singapore")
   puts " Complete!".color(:green)
 
-  print "generating frames...............".color(:white)
+  print "generating frames................".color(:white)
   Plant.all.each do |plant|
     rand(2..5).times do
       plant.frames.create(temperature: rand(1..100))
@@ -52,7 +54,7 @@ if Rails.env.development?
   end
   puts " Complete!".color(:green)
 
-  print "generating cells...............".color(:white)
+  print "generating cells.................".color(:white)
   Frame.all.each do |frame|
     rand(1..5).times do
       frame.cells.create(status: [:errored, :active, :inactive][rand(0..2)])
@@ -70,5 +72,7 @@ if Rails.env.development?
   end
   puts " Complete!".color(:green)
 
-  puts "\n !!! Database Seed Status: #{'SUCCESS'.color(:green).bright} !!! \n\n\n".color(:cyan)
+  puts "\n"
+  puts "!!! Database Seed Status: #{'SUCCESS'.color(:green).bright} !!! ".color(:cyan)
+  puts "\n\n\n"
 end
