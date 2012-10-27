@@ -4,7 +4,8 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "content-type"}/
 
-    %title= title
+    %title MAKE THIS DYNAMIC
+    / %title= title
 
     = stylesheet_link_tag :application, media: "all"
     = javascript_include_tag :application
@@ -13,4 +14,3 @@
   %body
     .container
       = yield
-      

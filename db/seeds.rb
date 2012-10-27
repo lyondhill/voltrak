@@ -24,7 +24,7 @@ if Rails.env.development?
 
   require 'rainbow'
 
-  # Sickill::Rainbow.enabled = true
+  Sickill::Rainbow.enabled = true
 
   Mongoid.logger = nil
   Mongoid::Config.purge!
@@ -37,29 +37,30 @@ if Rails.env.development?
   # end
 
   ###  -- BEGIN SEEDING DATABASE --
-  puts "\n\n\n--- Begin Seeding Database ---"
+  puts "\n\n\n--- Begin Seeding Database ---".color(:cyan).underline
 
-  puts "Generating a plant"
-
+  puts "generating plants...............".color(:white)
   p = Plant.create(name: "Singapore")
+  puts " Complete!".color(:green)
 
-  puts "generationg frames"
+  print "generating frames...............".color(:white)
   Plant.all.each do |plant|
     rand(2..5).times do
       plant.frames.create(temperature: rand(1..100))
       plant.frames.create(temperature: rand(1..100))
     end
   end
+  puts " Complete!".color(:green)
 
-  puts "generate cells"
+  print "generating cells...............".color(:white)
   Frame.all.each do |frame|
     rand(1..5).times do
       frame.cells.create(status: [:errored, :active, :inactive][rand(0..2)])
     end
   end
+  puts " Complete!".color(:green)
 
-
-  puts "generate reports"
+  print "generating reports...............".color(:white)
   Cell.all.each do |cell|
     week_epoc = (Time.now - 1.week.ago)
     1000.times do |num|
@@ -67,8 +68,7 @@ if Rails.env.development?
       cell.reports.create(report_time: time, voltage: rand(0.0..30.0).round(2))
     end
   end
+  puts " Complete!".color(:green)
 
-  # seed stuff here
-
-  puts "\n!!! Database Seed Status: #{'SUCCESS'.color(:green).bright} !!!"
+  puts "\n !!! Database Seed Status: #{'SUCCESS'.color(:green).bright} !!! \n\n\n".color(:cyan)
 end
