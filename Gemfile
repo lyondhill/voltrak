@@ -19,6 +19,7 @@ gem 'pry-rails'
 
 group :test, :development do
   gem "rspec-rails", "~> 2.0"
+  gem "rainbows"
 end
 
 # Gems used only for assets and not required
