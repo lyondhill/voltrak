@@ -45,32 +45,35 @@ if Rails.env.development?
   puts "\n"
 
   print "generating plants................".color(:white)
-  p = Plant.create(name: "Singapore")
+  plants = [
+    Plant.create(name: "Singapore"),
+    Plant.create(name: "USA"),
+    Plant.create(name: "Europe")
+  ]
   puts " Complete!".color(:green)
 
   print "generating frames................".color(:white)
-  Plant.all.each do |plant|
+  plants.each do |p|
     5.times do
-      plant.frames.create(temperature: rand(1..100))
-      plant.frames.create(temperature: rand(1..100))
+      p.frames.create(temperature: rand(1..100))
     end
   end
   puts " Complete!".color(:green)
 
   print "generating cells.................".color(:white)
-  Frame.all.each do |frame|
+  Frame.all.each do |f|
     5.times do
-      frame.cells.create(status: [:errored, :active, :inactive].sample)
+      f.cells.create(status: [:errored, :active, :inactive].sample)
     end
   end
   puts " Complete!".color(:green)
 
   print "generating reports...............".color(:white)
-  Cell.all.each do |cell|
+  Cell.all.each do |c|
     week_epoc = (Time.now - 1.week.ago)
-    250.times do |num|
-      time = (Time.now - ((week_epoc / 1000) + (num * (week_epoc / 1000)) ))
-      cell.reports.create(report_time: time, voltage: rand(0.0..30.0).round(2))
+    50.times do |i|
+      time = (Time.now - ((week_epoc / 1000) + (i * (week_epoc / 1000)) ))
+      c.reports.create(report_time: time, voltage: rand(0.0..30.0).round(2))
     end
   end
   puts " Complete!".color(:green)
