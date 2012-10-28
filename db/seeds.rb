@@ -36,6 +36,9 @@ if Rails.env.development?
   #   (c == :black) ? (print "#{c}".color(c).background(:white)) : (print " #{c}".color(c))
   # end
 
+
+  # TODO: add time taken and a reports counter
+
   ###  -- BEGIN SEEDING DATABASE --
   puts "\n\n\n"
   puts "--- Begin Seeding Database ---".color(:cyan).underline
