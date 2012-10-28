@@ -36,8 +36,7 @@ if Rails.env.development?
   #   (c == :black) ? (print "#{c}".color(c).background(:white)) : (print " #{c}".color(c))
   # end
 
-
-  # TODO: add time taken and a reports counter
+  t = Time.new
 
   ###  -- BEGIN SEEDING DATABASE --
   puts "\n\n\n"
@@ -50,7 +49,7 @@ if Rails.env.development?
     Plant.create(name: "USA"),
     Plant.create(name: "Europe")
   ]
-  puts " Complete!".color(:green)
+  puts " Complete! (created #{plants.count})".color(:green)
 
   print "generating frames................".color(:white)
   plants.each do |p|
@@ -58,7 +57,7 @@ if Rails.env.development?
       p.frames.create(temperature: rand(1..100))
     end
   end
-  puts " Complete!".color(:green)
+  puts " Complete! (created #{Frame.count})".color(:green)
 
   print "generating cells.................".color(:white)
   Frame.all.each do |f|
@@ -66,19 +65,24 @@ if Rails.env.development?
       f.cells.create(status: [:errored, :active, :inactive].sample)
     end
   end
-  puts " Complete!".color(:green)
+  puts " Complete! (created #{Cell.count})".color(:green)
 
-  print "generating reports...............".color(:white)
+  puts "generating reports...............".color(:white)
+  
+  count = 50; num = 0
   Cell.all.each do |c|
     week_epoc = (Time.now - 1.week.ago)
-    50.times do |i|
+    count.times do |i|
+      print "#{"\r" + "\e[0K"}#{num + 1}/#{Cell.count*count} reports created........".color(:white)
       time = (Time.now - ((week_epoc / 1000) + (i * (week_epoc / 1000)) ))
       c.reports.create(report_time: time, voltage: rand(0.0..30.0).round(2))
+      num += 1
     end
   end
-  puts " Complete!".color(:green)
+  puts " Complete! (created #{Report.count})".color(:green)
 
   puts "\n"
-  puts "!!! Database Seed Status: #{'SUCCESS'.color(:green).bright} !!! ".color(:cyan)
+  puts "!!! Database Seed Status: #{'SUCCESS'.color(:green).bright} !!!".color(:cyan)
+  puts "Completed in: #{(Time.now - t).round(2)} sec"
   puts "\n\n\n"
 end
