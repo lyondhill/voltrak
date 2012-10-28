@@ -13,7 +13,7 @@
       %th Status
   %tbody
     - @frame.cells.each_with_index do |c,i|
-      %tr
+      %tr{class: setStatusIndicator(c.status)}
         %td= i
         %td= c.id
         %td= c.frame.id

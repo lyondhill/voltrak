@@ -13,7 +13,7 @@
       %th 
   %tbody
     - @frames.each_with_index do |f,i|
-      %tr
+      %tr{class: setTempStatus(f.temperature)}
         %td= i
         %td= f.id
         %td= f.temperature

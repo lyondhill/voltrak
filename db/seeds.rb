@@ -50,7 +50,7 @@ if Rails.env.development?
 
   print "generating frames................".color(:white)
   Plant.all.each do |plant|
-    rand(2..5).times do
+    5.times do
       plant.frames.create(temperature: rand(1..100))
       plant.frames.create(temperature: rand(1..100))
     end
@@ -59,8 +59,8 @@ if Rails.env.development?
 
   print "generating cells.................".color(:white)
   Frame.all.each do |frame|
-    rand(1..5).times do
-      frame.cells.create(status: [:errored, :active, :inactive][rand(0..2)])
+    5.times do
+      frame.cells.create(status: [:errored, :active, :inactive].sample)
     end
   end
   puts " Complete!".color(:green)
@@ -68,7 +68,7 @@ if Rails.env.development?
   print "generating reports...............".color(:white)
   Cell.all.each do |cell|
     week_epoc = (Time.now - 1.week.ago)
-    1000.times do |num|
+    250.times do |num|
       time = (Time.now - ((week_epoc / 1000) + (num * (week_epoc / 1000)) ))
       cell.reports.create(report_time: time, voltage: rand(0.0..30.0).round(2))
     end
