@@ -1,0 +1,27 @@
+%ul.breadcrumb
+  %li
+    %a{:href => plants_url} Plants
+    %span.divider /
+  %li
+    %a{:href => "#"} Frame
+    %span.divider /
+  %li.active Cell
+
+%table.table.table-condensed.table-hover
+  %thead
+    %tr
+      %th #
+      %th Report ID
+      %th Report Time
+      %th Report Cell
+      %th Voltage
+  %tbody
+    - @cell.reports.each_with_index do |r,i|
+      %tr
+        %td= i
+        %td= r.id
+        %td= r.report_time
+        %td= r.cell.id
+        %td= r.voltage
+        %td
+          %a{href: plant_frame_cell_report_url(r.cell.frame.plant, r.cell.frame, r.cell, r)} view

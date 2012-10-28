@@ -1,0 +1,22 @@
+%ul.breadcrumb
+  %li
+    %a{:href => plants_url} Plants 
+    %span.divider /
+  %li.active Frame
+
+%table.table.table-condensed.table-hover
+  %thead
+    %tr
+      %th #
+      %th Cell ID
+      %th Cell Frame
+      %th Status
+  %tbody
+    - @frame.cells.each_with_index do |c,i|
+      %tr
+        %td= i
+        %td= c.id
+        %td= c.frame.id
+        %td= c.status
+        %td
+          %a{href: plant_frame_cell_url(c.frame.plant, c.frame, c)} view

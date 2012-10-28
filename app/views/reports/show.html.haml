@@ -1,0 +1,15 @@
+%ul.breadcrumb
+  %li
+    %a{:href => plants_url} Plants
+    %span.divider /
+  %li
+    %a{:href => "#"} Frame
+    %span.divider /
+  %li
+    %a{:href => "#"} Cell
+    %span.divider /
+  %li.active Reports
+
+
+= @report.report_time
+= @report.voltage

@@ -8,8 +8,8 @@
     %tr
       %th #
       %th Plant Name
-      %th Number of frames
-      %th Something Else
+      %th Frames
+      %th 
   %tbody
     - @plants.each_with_index do |p,i|
       %tr
@@ -18,4 +18,4 @@
         %td= p.frames.count
         %td
         %td
-          %a{href:plant_url(p)} view
+          %a{href: plant_url(p)} view

@@ -10,7 +10,7 @@
       %th #
       %th Frame ID
       %th Temperature
-      %th Something Else
+      %th 
   %tbody
     - @frames.each_with_index do |f,i|
       %tr
@@ -19,4 +19,4 @@
         %td= f.temperature
         %td
         %td
-          %a{href:"#"} view
+          %a{href: plant_frame_url(f.plant, f)} view
