@@ -1,1 +1,21 @@
-plants
+%ul.breadcrumb
+  %li.active Plants
+
+%h1 Plants
+
+%table.table.table-condensed.table-hover
+  %thead
+    %tr
+      %th #
+      %th Plant Name
+      %th Number of frames
+      %th Something Else
+  %tbody
+    - @plants.each_with_index do |p,i|
+      %tr
+        %td= i
+        %td= p.name
+        %td= p.frames.count
+        %td
+        %td
+          %a{href:plant_url(p)} view

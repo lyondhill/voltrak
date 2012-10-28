@@ -1,6 +1,12 @@
 Voltrak::Application.routes.draw do
   
-  resources :plants
+  resources :plants do
+    resources :frames do
+      resources :cells do 
+        resources :reports
+      end
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
