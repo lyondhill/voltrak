@@ -20,7 +20,10 @@
 %h1 Frames
 #frames
   - @frames.each_with_index do |f,i|
-    %h2 Frame ##{i+1} (#{f.temperature})
+    %h2
+      %a{href: plant_frame_url(f.plant, f)}
+        Frame ##{i+1}
+        .status{class: setTempStatus(f.temperature)} (#{f.temperature})
 
     %ul#cells
       - f.cells.each_with_index do |c,ii|
