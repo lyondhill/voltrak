@@ -14,6 +14,7 @@ gem "mongoid", "~> 3.0.0"
 # gem 'multi_json'    # JSON encoder selector
 gem 'draper'
 # gem 'rabl'          # Rails API language
+gem 'fnordmetric'
 
 gem 'pry-rails'
 
