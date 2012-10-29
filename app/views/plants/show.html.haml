@@ -1,18 +1,28 @@
-%table.table.table-condensed.table-hover
-  %thead
-    %tr
-      %th #
-      %th Frame ID
-      %th Temperature
-      %th 
-  %tbody
-    - @frames.each_with_index do |f,i|
-      %tr{class: setTempStatus(f.temperature)}
-        %td= i
-        %td= f.id
-        %td= f.temperature
-        %td
-        %td
-          %a{href: plant_frame_url(f.plant, f)} view
-        %td
-          %a{href: plants_url(f.plant)} back
+/ %table.table.table-condensed.table-hover
+/   %thead
+/     %tr
+/       %th #
+/       %th Frame ID
+/       %th Temperature
+/       %th 
+/   %tbody
+/     - @frames.each_with_index do |f,i|
+/       %tr{class: setTempStatus(f.temperature)}
+/         %td= i
+/         %td= f.id
+/         %td= f.temperature
+/         %td
+/         %td
+/           %a{href: plant_frame_url(f.plant, f)} view
+/         %td
+/           %a{href: plants_url(f.plant)} back
+
+%h1 Frames
+#frames
+  - @frames.each_with_index do |f,i|
+    %h2 Frame ##{i+1} (#{f.temperature})
+
+    %ul#cells
+      - f.cells.each_with_index do |c,ii|
+        %li{class: c.status}
+          %a{href: plant_frame_cell_url(c.frame.plant, c.frame, c)}= ii+1
