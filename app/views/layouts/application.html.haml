@@ -14,20 +14,4 @@
 
   %body
     .container
-
-      -#
-        .navbar.navbar-static-top.navbar-inverse
-          .navbar-inner
-            -# TODO: make this dynamic
-            %a.brand{href: "#"} Plants
-            %ul.nav
-              %li.active
-                %a{href: plants_url} Plants
-              %li
-                %a{href: frames_url} Frames
-              %li
-                %a{href: cells_url} Cells
-              %li
-                %a{href: reports_url} Reports
-
       = yield
