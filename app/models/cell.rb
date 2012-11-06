@@ -11,11 +11,11 @@ class Cell
   has_many :reports
   belongs_to :frame
 
-  def report_json(days = 1)
-    data = reports.where(:report_time.gte days.days.ago).map do |report|
-      [report.report_time, report.voltage]
+  def json_report(days = 1)
+    data = reports.where(:report_time.gte => days.days.ago).map do |r|
+      [r.report_time.to_i, r.voltage]
     end
-    MultiJson.dump({label: cell.uid, data: data})
+    MultiJson.dump({label: self.uid, data: data})
   end
   
 end
