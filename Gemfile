@@ -35,13 +35,14 @@ group :assets do
   # gem 'normalize-rails'
   # gem 'responders'
   # gem 'sass-rails',   '~> 3.2.3'
+  gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
   gem 'twitter-bootstrap-rails'
 
   # gem 'haml_assets' # allows .haml to be read from the asset pipeline (for JS frameworks)
   # gem 'coffee-filter' # allows a :coffeescript tag for inline coffeescript
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+  gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
 end

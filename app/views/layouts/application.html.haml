@@ -1,17 +1,20 @@
-!!!
-%html
-
+!!! 5
+%html(lang="en")
   %head
-    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "content-type"}/
-
-    / TODO: make this dynamic
-    / %title= title
-    %title Voltrak
-
-    = stylesheet_link_tag :application, media: "all"
-    = javascript_include_tag :application
-    = csrf_meta_tags
+    = render 'shared/head'
 
   %body
-    .container
+    %header
+      = render 'shared/header'
+
+    .container 
+      = bootstrap_flash
       = yield
+
+    %footer
+      = render 'shared/footer'
+
+    -# Javascripts
+    -# \==================================================
+    -# Placed at the end of the document so the pages load faster
+    = javascript_include_tag :application
