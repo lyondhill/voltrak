@@ -30,7 +30,7 @@ $ ->
           tickDecimals: 0
 
   showTooltip = (x, y, contents) ->
-    $("<div id=\"tooltip\">" + contents + "</div>").css(
+    $("<div id=\"tooltip\">#{contents}</div>").css(
       position: "absolute"
       display: "none"
       top: y + 5
@@ -66,7 +66,7 @@ $ ->
 
   choiceContainer = $("#choices")
   $.each datasets, (key, val) ->
-    choiceContainer.append "<input type=\"checkbox\" name=\"" + key + "\" checked=\"checked\" id=\"id" + key + "\">" + "<label for=\"id" + key + "\">" + val.label + "</label>"
+    choiceContainer.append "<input type=\"checkbox\" name=\"#{key}\" checked=\"checked\" id=\"id#{key}\">" + "<label for=\"id#{key}\">#{val.label}</label>"
 
   choiceContainer.find("input").click plotAccordingToChoices
 
@@ -80,7 +80,7 @@ $ ->
         $("#tooltip").remove()
         x = item.datapoint[0].toFixed(2)
         y = item.datapoint[1].toFixed(2)
-        showTooltip item.pageX, item.pageY, item.series.label + " of " + x + " = " + y
+        showTooltip item.pageX, item.pageY, item.series.label + " of #{x} = #{y}"
     else
       $("#tooltip").remove()
       previousPoint = null
