@@ -12,6 +12,7 @@ chdir /var/www
 
 git clone git://github.com/lyondhill/voltrak.git
 
+chdir /var/www/voltrak
 
 echo 'setting up chef stuff'
 
