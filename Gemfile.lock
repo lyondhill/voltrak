@@ -113,6 +113,8 @@ GEM
       slop (~> 3.3.1)
     pry-rails (0.2.2)
       pry (>= 0.9.10)
+    puma (1.5.0)
+      rack (~> 1.2)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -200,10 +202,13 @@ DEPENDENCIES
   fnordmetric
   haml-rails
   jquery-rails
+  less-rails
   mongoid (~> 3.0.0)
   pry-rails
+  puma
   rails (= 3.2.8)
   rainbow
   rspec-rails (~> 2.0)
+  therubyracer
   twitter-bootstrap-rails
   uglifier (>= 1.0.3)

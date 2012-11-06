@@ -13,6 +13,7 @@ gem "mongoid", "~> 3.0.0"
 # gem 'oj'            # a fast JSON parser
 # gem 'multi_json'    # JSON encoder selector
 gem 'draper'
+gem 'puma'
 # gem 'rabl'          # Rails API language
 gem 'fnordmetric'
 
