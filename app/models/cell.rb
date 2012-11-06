@@ -4,6 +4,7 @@ class Cell
   STATUSES = [:errored, :active, :inactive]
 
   field :status, type: Symbol
+  field :uid
 
   validates_inclusion_of :status, in: STATUSES
 

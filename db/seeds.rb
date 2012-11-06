@@ -54,7 +54,7 @@ if Rails.env.development?
   print "generating frames................".color(:white)
   plants.each do |p|
     5.times do
-      p.frames.create(temperature: rand(1..100))
+      p.frames.create(temperature: rand(1..100), name: (0...8).map{65.+(rand(26)).chr}.join)
     end
   end
   puts " Complete! (created #{Frame.count})".color(:green)
@@ -62,7 +62,7 @@ if Rails.env.development?
   print "generating cells.................".color(:white)
   Frame.all.each do |f|
     5.times do
-      f.cells.create(status: [:errored, :active, :inactive].sample)
+      f.cells.create(status: [:errored, :active, :inactive].sample, uid: rand(1..100))
     end
   end
   puts " Complete! (created #{Cell.count})".color(:green)

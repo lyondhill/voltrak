@@ -2,6 +2,7 @@ class Frame
   include Mongoid::Document
 
   field :temperature, type: Integer
+  filed :name
 
   has_many :cells
   belongs_to :plant
