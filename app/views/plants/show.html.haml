@@ -1,27 +1,26 @@
 
-%h1= @plant.name
+%h1.page-header= link_to @plant.name, plants_url
 %table.table.table-condensed.table-hover
   %thead
     %tr
       %th #
-      %th Frame ID
+      %th 
+        %i.icon-th-large
+        Frame
       %th Temperature
-      %th Cells
       %th 
-      %th 
+        %i.icon-th
+        Cells
   %tbody
     - @frames.each_with_index do |f,i|
-      %tr{class: setTempStatus(f.temperature)}
+      %tr
         %td= i+1
-        %td= f.name
-        %td= f.temperature
+        %td= link_to f.name, plant_frame_url(f.plant,f)
+        %td
+          %span.badge{class: "badge-#{setTempStatus(f.temperature)}"}= f.temperature
         %td
           %ul#cells
             - f.cells.each do |c|
-              %li{class: c.status}
-                %a{href: plant_frame_cell_url(c.frame.plant, c.frame, c)}= c.uid
-        %td
-        %td
-          %a{href: plant_frame_url(f.plant, f)} view
-        %td
-          %a{href: plants_url(f.plant)} back
+              %li
+                = link_to plant_frame_cell_url(c.frame.plant, c.frame, c) do
+                  %span.badge{class: "badge-#{setStatus(c.status)}"}= c.uid

@@ -1,30 +1,7 @@
-/ %table.table.table-condensed.table-hover
-/   %thead
-/     %tr
-/       %th #
-/       %th Cell ID
-/       %th Cell Frame
-/       %th Status
-/   %tbody
-/     - @frame.cells.each_with_index do |c,i|
-/       %tr{class: setStatusIndicator(c.status)}
-/         %td= i
-/         %td= c.id
-/         %td= c.frame.id
-/         %td= c.status
-/         %td
-/           %a{href: plant_frame_cell_url(c.frame.plant, c.frame, c)} view
-/         %td
-/           %a{href: plant_url(c.frame.plant)} back
-
 #frames.frame
   %h1
-    Frame
-    .status{class: setTempStatus(@frame.temperature)} (#{@frame.temperature})
+    = link_to @frame.name, plant_frame_url(@frame)
+    %span.badge{class: "badge-#{setTempStatus(@frame.temperature)}"}= @frame.temperature
 
-  %ul#cells
-    - @frame.cells.each_with_index do |c,ii|
-      %li{class: c.status}
-        %a{href: plant_frame_cell_url(c.frame.plant, c.frame, c)}= ii+1
-
-  #placeholder{ style: 'width:600px; height:300px'}
+  #cells_flot{ style: 'width:600px; height:300px'}
+  %p#choices Showing:

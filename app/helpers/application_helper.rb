@@ -6,17 +6,18 @@ module ApplicationHelper
     elsif temp.between?(50, 75)
       'warning'
     elsif temp > 75
-      'error'
+      'important'
     end
   end
 
-  def setStatusIndicator status
+  def setStatus status
     case status
       when :active
+        'success'
       when :inactive
         'warning'
       when :errored
-        'error'
+        'important'
       else
     end
   end
