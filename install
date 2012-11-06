@@ -4,6 +4,10 @@ echo 'installing chef'
 
 curl -L http://www.opscode.com/chef/install.sh | bash
 
+echo 'install git'
+
+apt-get -y install git
+
 echo 'pulling git_repo'
 
 mkdir -p /var/www
