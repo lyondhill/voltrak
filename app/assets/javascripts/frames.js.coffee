@@ -6,8 +6,25 @@ $ ->
 
   i               = 0
   choices         = $("#choices")
+  colors          = []
   datasets        = null
   json_route      = $("#cells_flot").data('json-route')
+
+  plot_options    =
+    series:
+      lines:
+        show: true
+      points:
+        show: true
+    grid:
+      hoverable: true
+
+    yaxis:
+      min: 0
+    xaxis:
+      tickDecimals: 0
+
+  # colors = []
 
   # insert checkboxes 
   plotAccordingToChoices = ->
@@ -19,31 +36,25 @@ $ ->
       data.push datasets[key][key] if key and datasets[key][key]
 
     if data.length > 0
-      $.plot $("#cells_flot"), data,
-        series:
-          lines:
-            show: true
-          points:
-            show: true
-        grid:
-          hoverable: true
+      # build plot
+      plot = $.plot $("#cells_flot"), data, plot_options
 
-        yaxis:
-          min: 0
-        xaxis:
-          tickDecimals: 0
-
+      series = plot.getData()
+      $.each series, (i,e) ->
+        colors.push series[i].color
+    
   showTooltip = (x, y, contents, color) ->
     $("<div id='tooltip'>#{contents}</div>").css(
       position:           "absolute"
       display:            "none"
       top:                y - 10
       left:               x + 15
-      border:             "1px solid #fdd"
+      color:              "#FFFFFF"
+      border:             "1px solid #333333"
       padding:            "2px"
-      "background-color": color
-      opacity:            0.75
-    ).appendTo("body").fadeIn 200
+      "background-color": colors[color]
+      opacity:            1
+    ).appendTo("body").fadeIn 250
 
   # request json data
   jqxhr = $.getJSON( json_route, (data) ->
@@ -69,7 +80,6 @@ $ ->
 
     previousPoint = null
     $("#cells_flot").bind "plothover", (event, pos, item) ->
-      console.log datasets[item['seriesIndex']][item['seriesIndex']]['color']
 
       $("#x").text pos.x.toFixed(2)
       $("#y").text pos.y.toFixed(2)
@@ -81,7 +91,7 @@ $ ->
           x = item.datapoint[0].toFixed(2)
           y = item.datapoint[1].toFixed(2)
 
-          showTooltip item.pageX, item.pageY, item.series.label + " of #{x} = #{y}"
+          showTooltip item.pageX, item.pageY, item.series.label + " of #{x} = #{y}", datasets[item['seriesIndex']][item['seriesIndex']]['color']
       else
         $("#tooltip").remove()
         previousPoint = null

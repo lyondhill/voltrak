@@ -1,4 +1,6 @@
-%h1.page-header= link_to @plant.name, plants_url
+%h1.page-header
+  = @plant.name
+  = link_to 'back to plants', plants_url, class: 'btn btn-link'
 %table.table.table-condensed.table-hover
   %thead
     %tr
