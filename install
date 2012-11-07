@@ -1,6 +1,12 @@
 #!/bin/bash
 
 echo '********************'
+echo 'update apt-get'
+echo '********************'
+
+apt-get update
+
+echo '********************'
 echo 'installing chef'
 echo '********************'
 
