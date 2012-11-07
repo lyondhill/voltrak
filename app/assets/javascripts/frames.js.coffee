@@ -45,10 +45,9 @@ $ ->
     ).appendTo("body").fadeIn 200
 
   datasets = null
-  jqxhr = $.getJSON('http://localhost:3000/plants/509a06f5965600d42e000001/frames/509a06f5965600d42e000004/get_reports.json', (data) ->
+  jqxhr = $.getJSON('http://localhost:9292/plants/509a09039656004e53000001/frames/509a09039656004e53000004/get_reports.json', (data) ->
     console.log "success"
     datasets = data
-    console.log data
   ).success(->
   ).error(->
     console.log "error"
@@ -56,7 +55,8 @@ $ ->
     console.log "complete"
 
     $.each datasets, (key, val) ->
-      console.log key, val
+      # console.log key, val
+      console.log val['63'].label
       choiceContainer.append "<input type=\"checkbox\" name=\"#{key}\" checked=\"checked\" id=\"id#{key}\">" + "<label for=\"id#{key}\">#{val.label}</label>"
 
       val.color = i
