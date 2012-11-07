@@ -13,7 +13,8 @@ class Frame
   # end
   
   def json_reports(days = 1)
-    arr = cells.each_with_index { |cell, index| {index.to_s => cell.reports_hash(days)} }
+    arr = []
+    cells.each_with_index { |cell, index| arr << {index.to_s => cell.reports_hash(days)} }
     MultiJson.dump(arr)
   end
 
