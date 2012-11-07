@@ -4,18 +4,17 @@
 
 $ ->
 
-  # hard-code color indices to prevent them from shifting as
-  # countries are turned on/off
-
-  i = 0
-  choiceContainer = $("#choices")
-
-  json_route = $("#test").data('json-route')
+  i               = 0
+  choices         = $("#choices")
+  datasets        = null
+  json_route      = $("#cells_flot").data('json-route')
 
   # insert checkboxes 
   plotAccordingToChoices = ->
+    console.log "plotting..."
     data = []
-    choiceContainer.find("input:checked").each ->
+
+    choices.find('input:checked').each ->
       key = $(this).attr("name")
       data.push datasets[key][key] if key and datasets[key][key]
 
@@ -34,45 +33,54 @@ $ ->
         xaxis:
           tickDecimals: 0
 
-  showTooltip = (x, y, contents) ->
-    $("<div id=\"tooltip\">#{contents}</div>").css(
-      position: "absolute"
-      display: "none"
-      top: y + 5
-      left: x + 5
-      border: "1px solid #fdd"
-      padding: "2px"
-      "background-color": "#fee"
-      opacity: 0.80
+  showTooltip = (x, y, contents, color) ->
+    $("<div id='tooltip'>#{contents}</div>").css(
+      position:           "absolute"
+      display:            "none"
+      top:                y - 10
+      left:               x + 15
+      border:             "1px solid #fdd"
+      padding:            "2px"
+      "background-color": color
+      opacity:            0.75
     ).appendTo("body").fadeIn 200
 
-  datasets = null
+  # request json data
   jqxhr = $.getJSON( json_route, (data) ->
-    console.log "success"
     datasets = data
   ).success(->
   ).error(->
     console.log "error"
   ).complete(->
-    console.log "complete"
-
     $.each datasets, (key, val) ->
-      choiceContainer.append "<input type=\"checkbox\" name=\"#{key}\" checked=\"checked\" id=\"id#{key}\">" + "<label for=\"id#{key}\">#{val[key].label}</label>"
+      choices.append "<label for='id#{key}'><input type='checkbox' name='#{key}' checked='checked' id='id#{key}'><i class='icon-th'></i> Cell: #{val[key].label}</label>"
+      
+      # hard-code color indices to prevent them from shifting as
+      # countries are turned on/off
       val[key].color = i
       ++i
 
-    choiceContainer.find("input").click plotAccordingToChoices
+    choices.find('input').on 'click', (event) ->
+      plotAccordingToChoices()
+
+    $('#btn-checkall').on 'click', (event) ->
+      choices.find('input').attr('checked', 'checked')
+      plotAccordingToChoices()
 
     previousPoint = null
     $("#cells_flot").bind "plothover", (event, pos, item) ->
+      console.log datasets[item['seriesIndex']][item['seriesIndex']]['color']
+
       $("#x").text pos.x.toFixed(2)
       $("#y").text pos.y.toFixed(2)
+
       if item
         unless previousPoint is item.dataIndex
           previousPoint = item.dataIndex
           $("#tooltip").remove()
           x = item.datapoint[0].toFixed(2)
           y = item.datapoint[1].toFixed(2)
+
           showTooltip item.pageX, item.pageY, item.series.label + " of #{x} = #{y}"
       else
         $("#tooltip").remove()

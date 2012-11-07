@@ -1,10 +1,25 @@
 #frames.frame
-  %h1
-    = @frame.id
+  %h1.page-header
+    %i.icon-th-large
+    Frame: 
     = link_to @frame.name, plant_frame_url(@frame)
-    %span.badge{class: "badge-#{setTempStatus(@frame.temperature)}"}= @frame.temperature
+    
+    %span.badge{class: "badge-#{setTempStatus(@frame.temperature)}"}
+      %i.icon-fire
+      = @frame.temperature
 
-  #cells_flot{style: 'width:600px; height:300px'}
-  %p#choices Showing:
+  .row
+    .span2
+      %p#choices Showing:
+      %button.btn.btn-success.btn-mini#btn-checkall
+        %i.icon-ok
+        Check All
+    
+    .span8
+      %button.btn.btn-primary.btn-mini#btn-refresh
+        %i.icon-refresh
+        Refresh Data
+      #cells_flot{style: 'width:600px; height:300px', data: {'json-route' => get_reports_plant_frame_url(@frame.plant, @frame)}}
+    
 
-  #test{data: {'json-route' => get_reports_plant_frame_url(@frame.plant, @frame)}} CLICK HERE!
+    
