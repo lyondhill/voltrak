@@ -69,13 +69,18 @@ if Rails.env.development?
 
   puts "generating reports...............".color(:white)
   
+
   count = 50; num = 0
   Cell.all.each do |c|
     week_epoc = (Time.now - 1.week.ago)
+    number = 28.0
+
     count.times do |i|
       print "#{"\r" + "\e[0K"}#{num + 1}/#{Cell.count*count} reports created........".color(:white)
       time = (Time.now - ((week_epoc / 1000) + (i * (week_epoc / 1000)) ))
-      c.reports.create(report_time: time, voltage: rand(0.0..30.0).round(2))
+      ran = (number > 8) ? rand(number..(number + 10.0)).round(2) : 0.0
+      number = (number >= 28.0) ? 0.0 : (number + 2)
+      c.reports.create(report_time: time, voltage: ran)
       num += 1
     end
   end
