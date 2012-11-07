@@ -1,14 +1,18 @@
 #!/bin/bash
 
+echo '********************'
 echo 'installing chef'
+echo '********************'
 
 curl -L http://www.opscode.com/chef/install.sh | bash
-
+echo '********************'
 echo 'install git'
+echo '********************'
 
 apt-get -y install git
-
+echo '********************'
 echo 'pulling git_repo'
+echo '********************'
 
 mkdir -p /var/www
 
@@ -17,8 +21,9 @@ chdir /var/www
 git clone git://github.com/lyondhill/voltrak.git
 
 chdir /var/www/voltrak
-
+echo '********************'
 echo 'setting up chef stuff'
+echo '********************'
 
 mkdir /etc/chef/
 
@@ -42,7 +47,8 @@ END
 # run chef solo like this
 
 chef-solo -j ~/node.json
-
+echo '********************'
 echo 'now run the bundle command'
+echo '********************'
 
 sudo bundle install
