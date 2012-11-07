@@ -52,3 +52,19 @@ echo 'now run the bundle command'
 echo '********************'
 
 sudo bundle install
+
+echo '********************'
+echo 'Finally move the startup script'
+echo '********************'
+
+curl -o /etc/init/voltrak https://raw.github.com/lyondhill/voltrak/master/etc/init/voltrak
+
+echo '********************'
+echo '--------------------'
+echo 'FINNISHED!'
+echo '--------------------'
+echo '********************'
+
+
+
+
