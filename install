@@ -63,7 +63,7 @@ echo '********************'
 echo 'Finally move the startup script'
 echo '********************'
 
-curl -o /etc/init/voltrak https://raw.github.com/lyondhill/voltrak/master/etc/init/voltrak
+curl -o /etc/init/voltrak.conf https://raw.github.com/lyondhill/voltrak/master/etc/init/voltrak.conf
 
 echo '********************'
 echo '--------------------'
