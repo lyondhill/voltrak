@@ -10,6 +10,8 @@ $ ->
   i = 0
   choiceContainer = $("#choices")
 
+  json_route = $("#test").data('json-route')
+
   # insert checkboxes 
   plotAccordingToChoices = ->
     data = []
@@ -45,7 +47,7 @@ $ ->
     ).appendTo("body").fadeIn 200
 
   datasets = null
-  jqxhr = $.getJSON('http://localhost:9292/plants/509a09039656004e53000001/frames/509a09039656004e53000004/get_reports.json', (data) ->
+  jqxhr = $.getJSON( json_route, (data) ->
     console.log "success"
     datasets = data
   ).success(->
@@ -55,11 +57,10 @@ $ ->
     console.log "complete"
 
     $.each datasets, (key, val) ->
-      # console.log key, val
-      console.log val['63'].label
-      choiceContainer.append "<input type=\"checkbox\" name=\"#{key}\" checked=\"checked\" id=\"id#{key}\">" + "<label for=\"id#{key}\">#{val.label}</label>"
-
-      val.color = i
+      console.log key, val
+      console.log val[key].label
+      choiceContainer.append "<input type=\"checkbox\" name=\"#{key}\" checked=\"checked\" id=\"id#{key}\">" + "<label for=\"id#{key}\">#{val[key].label}</label>"
+      val[key].color = i
       ++i
 
     choiceContainer.find("input").click plotAccordingToChoices
