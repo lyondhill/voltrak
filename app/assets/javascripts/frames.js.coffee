@@ -16,23 +16,26 @@ $ ->
         show: true
       points:
         show: true
+
     grid:
       hoverable: true
 
     yaxis:
       min: 0
+
     xaxis:
+      mode: 'time'
       tickDecimals: 0
 
-  # colors = []
+    legend:
+      show: true
 
   # insert checkboxes 
   plotAccordingToChoices = ->
-    console.log "plotting..."
     data = []
-
     choices.find('input:checked').each ->
       key = $(this).attr("name")
+
       data.push datasets[key][key] if key and datasets[key][key]
 
     if data.length > 0
@@ -56,6 +59,9 @@ $ ->
       opacity:            1
     ).appendTo("body").fadeIn 250
 
+  formatTime = (UNIX_timestamp) ->
+    time = UNIX_timestamp*1000
+
   # request json data
   jqxhr = $.getJSON( json_route, (data) ->
     datasets = data
@@ -63,12 +69,20 @@ $ ->
   ).error(->
     console.log "error"
   ).complete(->
-    $.each datasets, (key, val) ->
-      choices.append "<label for='id#{key}'><input type='checkbox' name='#{key}' checked='checked' id='id#{key}'><i class='icon-th'></i> Cell: #{val[key].label}</label>"
+
+    # read returned JSON
+    $.each datasets, (k, v) ->
+      choices.append "<label for='id#{k}'><input type='checkbox' name='#{k}' checked='checked' id='id#{k}'><i class='icon-th'></i> Cell: #{v[k].label}</label>"
+
+      # format time to readable
+      console.log v[k]["data"]
+      $.each v[k]["data"], (k,v) ->
+        v[0] = formatTime v[0]
+
+      console.log v[k]["data"]
       
-      # hard-code color indices to prevent them from shifting as
-      # countries are turned on/off
-      val[key].color = i
+      # hard-code colors so they don't change as you toggle them on/off
+      v[k].color = i
       ++i
 
     choices.find('input').on 'click', (event) ->
