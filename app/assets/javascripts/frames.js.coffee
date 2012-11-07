@@ -44,11 +44,11 @@ $ ->
       opacity: 0.80
     ).appendTo("body").fadeIn 200
 
-  console.log "get"
   datasets = null
-  jqxhr = $.getJSON('http://localhost:3000/plants/509a023a965600ce2d000001/frames/509a023a965600ce2d000004/get_reports.json', (data) ->
+  jqxhr = $.getJSON('http://localhost:3000/plants/509a06f5965600d42e000001/frames/509a06f5965600d42e000004/get_reports.json', (data) ->
     console.log "success"
     datasets = data
+    console.log data
   ).success(->
   ).error(->
     console.log "error"
