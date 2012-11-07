@@ -17,7 +17,7 @@ $ ->
     data = []
     choiceContainer.find("input:checked").each ->
       key = $(this).attr("name")
-      data.push datasets[key] if key and datasets[key]
+      data.push datasets[key][key] if key and datasets[key][key]
 
     if data.length > 0
       $.plot $("#cells_flot"), data,
@@ -57,8 +57,6 @@ $ ->
     console.log "complete"
 
     $.each datasets, (key, val) ->
-      console.log key, val
-      console.log val[key].label
       choiceContainer.append "<input type=\"checkbox\" name=\"#{key}\" checked=\"checked\" id=\"id#{key}\">" + "<label for=\"id#{key}\">#{val[key].label}</label>"
       val[key].color = i
       ++i
