@@ -15,7 +15,7 @@ class Cell
     data = reports.where(:report_time.gte => days.days.ago).only(:report_time, :voltage).map do |r|
       [r.report_time.to_i, r.voltage]
     end
-    {label: self.uid, data: data}
+    {label: self.uid.to_s, data: data}
   end
   
 end
