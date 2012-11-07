@@ -1,7 +1,10 @@
 #frames.frame
   %h1
+    = @frame.id
     = link_to @frame.name, plant_frame_url(@frame)
     %span.badge{class: "badge-#{setTempStatus(@frame.temperature)}"}= @frame.temperature
 
   #cells_flot{ style: 'width:600px; height:300px'}
   %p#choices Showing:
+
+  #test CLICK HERE!

@@ -1,16 +1,15 @@
+%h1.page-header Plants
 %table.table.table-condensed.table-hover
   %thead
     %tr
       %th #
-      %th Plant Name
-      %th Frames
       %th 
+        %i.icon-globe
+        Plant Name
+      %th Frames
   %tbody
     - @plants.each_with_index do |p,i|
       %tr
         %td= i
-        %td= p.name
+        %td= link_to p.name, plant_url(p)
         %td= p.frames.count
-        %td
-        %td
-          %a{href: plant_url(p)} view
