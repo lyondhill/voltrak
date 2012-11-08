@@ -6,21 +6,25 @@
     = link_to 'back to frame', plant_frame_url(@cell.frame.plant, @cell.frame), class: 'btn btn-link'
 
   .row
-    .span6#reports.index
+    .span5#reports.index
       %table.table.table-condensed.table-hover
         %thead
           %tr
             %th #
-            %th Report Time
-            %th Voltage
+            %th 
+              %i.icon-time
+              Report Time
+            %th 
+              %i.icon-bolt
+              Voltage
         %tbody
           - @cell.reports.each_with_index do |r,i|
             %tr
               %td= i
-              %td= r.report_time
+              %td= r.report_time.strftime('%a %b %d %l:%M:%S %P')
               %td= r.voltage
     
-    .span6
+    .span6.offset1
       .row
         %button.btn.btn-primary.btn-mini#btn-refresh.pull-right
           %i.icon-refresh
