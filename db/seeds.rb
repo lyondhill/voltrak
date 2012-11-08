@@ -90,4 +90,23 @@ if Rails.env.development?
   puts "!!! Database Seed Status: #{'SUCCESS'.color(:green).bright} !!!".color(:cyan)
   puts "Completed in: #{(Time.now - t).round(2)} sec"
   puts "\n\n\n"
+
+  puts 'now running continuous data feed'.color(:yellow)
+  puts 'press ctrl + c to quit'.color(:yellow)
+
+  trap('INT') { @keep_seeding = false; puts "Bye\n\n" }
+  @keep_seeding = true
+  number = 28.0
+  while @keep_seeding 
+    sleep(1)
+    Cell.all.each do |c|
+      time = (Time.now )
+      ran = (number > 8) ? rand(number..(number + 10.0)).round(2) : 0.0
+      number = (number <= 0.0) ? 28.0 : (number - 0.1)
+      c.reports.create(report_time: time, voltage: ran)
+    end
+  end
+
 end
+
+
