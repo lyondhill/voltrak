@@ -69,7 +69,7 @@ $ ->
     # read returned JSON
     $.each datasets, (k, v) ->
       #insert checkboxes
-      choices.append "<a href='#'><label for='id#{k}'><input type='checkbox' name='#{k}' checked='checked' id='id#{k}'><i class='icon-th'></i> Cell: #{v[k].label}</label></a>"
+      choices.append "<label for='id#{k}'><input type='checkbox' name='#{k}' checked='checked' id='id#{k}'><i class='icon-th'></i> Cell: #{v[k].label}</label>"
 
       # format time to readable
       console.log v[k]["data"]

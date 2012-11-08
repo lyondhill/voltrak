@@ -2,7 +2,7 @@
   %h1.page-header
     %i.icon-th-large
     Frame:     
-    %span.badge{class: "badge-#{setTempStatus(@frame.temperature)}"}
+    %span.label{class: "badge-#{setTempStatus(@frame.temperature)}"}
       %i.icon-fire
       = formatNumber(@frame.temperature)
 
@@ -11,26 +11,34 @@
       back to #{@frame.plant.name}'s frames
 
   .row
-    .span2
-      %h4 Showing:
-      %hr
+    .span2.controls
+      .group
+        %h4 View Cell:
+        %hr
 
-      #choices
-        - @frame.cells.each do |c|
-          = link_to c.uid, plant_frame_cell_url(c.frame.plant, c.frame, c)
+        %ul#cells.index
+          - @frame.cells.each do |c|
+            %li
+              = link_to plant_frame_cell_url(c.frame.plant, c.frame, c) do
+                .label.label-info= formatNumber(c.uid)
 
-      %hr
-      %button.btn.btn-success.btn-mini#btn-checkall
-        %i.icon-ok
-        Check All
+      .group
+        %h4 Show plots for:
+        %hr
+
+        #choices
+
+        %button.btn.btn-success.btn-mini#btn-checkall
+          %i.icon-ok
+          Check All
     
-    .span8
+    .span8.offset1.chart
+      .row
+        #cells_flot{style: 'width:800px; height:400px', data: {'json-route' => get_cell_reports_plant_frame_url(@frame.plant, @frame)}}
       .row
         %button.btn.btn-primary.btn-mini#btn-refresh.pull-right
           %i.icon-refresh
           Refresh Data
-      .row
-        #cells_flot{style: 'width:800px; height:400px', data: {'json-route' => get_cell_reports_plant_frame_url(@frame.plant, @frame)}}
     
 
     

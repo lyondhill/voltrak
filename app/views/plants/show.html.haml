@@ -25,10 +25,10 @@
           %td= i+1
           %td= link_to f.name, plant_frame_url(f.plant,f)
           %td
-            %span.badge{class: "badge-#{setTempStatus(f.temperature)}"}= formatNumber(f.temperature)
+            %span.label{class: "badge-#{setTempStatus(f.temperature)}"}= formatNumber(f.temperature)
           %td
             %ul#cells
               - f.cells.each do |c|
                 %li
                   = link_to plant_frame_cell_url(c.frame.plant, c.frame, c) do
-                    %span.badge{class: "badge-#{setStatus(c.status)}"}= formatNumber(c.uid)
+                    %span.label.label-info #{formatNumber(c.uid)}
