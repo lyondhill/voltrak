@@ -27,11 +27,7 @@ $ ->
       mode: 'time'
       tickDecimals: 0
 
-    legend:
-      show: true
-      position: 'ne'
-
-  # insert checkboxes 
+  # build plot
   plotAccordingToChoices = ->
     data = []
     choices.find('input:checked').each ->
@@ -40,7 +36,6 @@ $ ->
       data.push datasets[key][key] if key and datasets[key][key]
 
     if data.length > 0
-      # build plot
       plot = $.plot $("#cells_flot"), data, plot_options
 
       series = plot.getData()
@@ -73,6 +68,7 @@ $ ->
 
     # read returned JSON
     $.each datasets, (k, v) ->
+      #insert checkboxes
       choices.append "<a href='#'><label for='id#{k}'><input type='checkbox' name='#{k}' checked='checked' id='id#{k}'><i class='icon-th'></i> Cell: #{v[k].label}</label></a>"
 
       # format time to readable

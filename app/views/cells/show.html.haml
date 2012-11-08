@@ -11,14 +11,12 @@
         %thead
           %tr
             %th #
-            %th Report ID
             %th Report Time
             %th Voltage
         %tbody
           - @cell.reports.each_with_index do |r,i|
             %tr
               %td= i
-              %td= r.id
               %td= r.report_time
               %td= r.voltage
     
