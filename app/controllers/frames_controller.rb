@@ -8,7 +8,7 @@ class FramesController < ApplicationController
     # @frame.trigger_view_event
   end
 
-  def get_reports
+  def get_cell_reports
     respond_to do |format|
       format.json { render json: Frame.find(params[:id]).json_reports }
     end

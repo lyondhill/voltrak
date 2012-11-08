@@ -29,6 +29,7 @@ $ ->
 
     legend:
       show: true
+      position: 'ne'
 
   # insert checkboxes 
   plotAccordingToChoices = ->
@@ -72,7 +73,7 @@ $ ->
 
     # read returned JSON
     $.each datasets, (k, v) ->
-      choices.append "<label for='id#{k}'><input type='checkbox' name='#{k}' checked='checked' id='id#{k}'><i class='icon-th'></i> Cell: #{v[k].label}</label>"
+      choices.append "<a href='#'><label for='id#{k}'><input type='checkbox' name='#{k}' checked='checked' id='id#{k}'><i class='icon-th'></i> Cell: #{v[k].label}</label></a>"
 
       # format time to readable
       console.log v[k]["data"]

@@ -14,6 +14,8 @@
       %hr
 
       #choices
+        - @frame.cells.each do |c|
+          = link_to c.uid, plant_frame_cell_url(c.frame.plant, c.frame, c)
 
       %hr
       %button.btn.btn-success.btn-mini#btn-checkall
@@ -26,7 +28,7 @@
           %i.icon-refresh
           Refresh Data
       .row
-        #cells_flot{style: 'width:800px; height:400px', data: {'json-route' => get_reports_plant_frame_url(@frame.plant, @frame)}}
+        #cells_flot{style: 'width:800px; height:400px', data: {'json-route' => get_cell_reports_plant_frame_url(@frame.plant, @frame)}}
     
 
     

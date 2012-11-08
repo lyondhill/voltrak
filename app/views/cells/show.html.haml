@@ -1,20 +1,31 @@
-%table.table.table-condensed.table-hover
-  %thead
-    %tr
-      %th #
-      %th Report ID
-      %th Report Time
-      %th Report Cell
-      %th Voltage
-  %tbody
-    - @cell.reports.each_with_index do |r,i|
-      %tr
-        %td= i
-        %td= r.id
-        %td= r.report_time
-        %td= r.cell.id
-        %td= r.voltage
-        %td
-          %a{href: plant_frame_cell_report_url(r.cell.frame.plant, r.cell.frame, r.cell, r)} view
-        %td
-          %a{href: plant_frame_url(r.cell.frame.plant, r.cell.frame)} back
+#cells.cell
+  %h1.page-header
+    %i.icon-th
+    Cell:
+    = @cell.uid     
+    = link_to 'back to frame', plant_frame_url(@cell.frame.plant, @cell.frame), class: 'btn btn-link'
+
+  .row
+    .span6#reports.index
+      %table.table.table-condensed.table-hover
+        %thead
+          %tr
+            %th #
+            %th Report ID
+            %th Report Time
+            %th Voltage
+        %tbody
+          - @cell.reports.each_with_index do |r,i|
+            %tr
+              %td= i
+              %td= r.id
+              %td= r.report_time
+              %td= r.voltage
+    
+    .span6
+      .row
+        %button.btn.btn-primary.btn-mini#btn-refresh.pull-right
+          %i.icon-refresh
+          Refresh Data
+      .row
+        #cell_flot{style: 'width:600px; height:300px', data: {'json-route' => get_report_plant_frame_cell_url(@cell.frame.plant, @cell.frame, @cell)}}

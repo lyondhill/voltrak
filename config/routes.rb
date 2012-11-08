@@ -2,9 +2,11 @@ Voltrak::Application.routes.draw do
   
   resources :plants do
     resources :frames do
-      get :get_reports, on: :member
+      get :get_cell_reports, on: :member
       
       resources :cells do 
+        get :get_report, on: :member
+
         resources :reports
       end
     end

@@ -5,4 +5,10 @@ class CellsController < ApplicationController
     @reports = @cell.reports
   end
 
+  def get_report
+    respond_to do |format|
+      format.json { render json: Cell.find(params[:id]).json_reports }
+    end
+  end
+
 end
