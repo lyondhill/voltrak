@@ -1,29 +1,34 @@
-%h1.page-header
-  = @plant.name
-  = link_to 'back to plants', plants_url, class: 'btn btn-link'
-%table.table.table-condensed.table-hover
-  %thead
-    %tr
-      %th #
-      %th 
-        %i.icon-th-large
-        Frame
-      %th 
-        %i.icon-fire
-        Temperature
-      %th 
-        %i.icon-th
-        Cells
-  %tbody
-    - @frames.each_with_index do |f,i|
+#plants.show
+  %h1.page-header
+    %i.icon-cogs
+    = @plant.name
+    = link_to plants_url, class: 'btn btn-link' do
+      %i.icon-caret-left
+      back to Plants
+
+  %table.table.table-condensed.table-hover
+    %thead
       %tr
-        %td= i+1
-        %td= link_to f.name, plant_frame_url(f.plant,f)
-        %td
-          %span.badge{class: "badge-#{setTempStatus(f.temperature)}"}= f.temperature
-        %td
-          %ul#cells
-            - f.cells.each do |c|
-              %li
-                = link_to plant_frame_cell_url(c.frame.plant, c.frame, c) do
-                  %span.badge{class: "badge-#{setStatus(c.status)}"}= c.uid
+        %th #
+        %th 
+          %i.icon-th-large
+          Frame
+        %th 
+          %i.icon-fire
+          Temperature
+        %th 
+          %i.icon-th
+          Cells
+    %tbody
+      - @frames.each_with_index do |f,i|
+        %tr
+          %td= i+1
+          %td= link_to f.name, plant_frame_url(f.plant,f)
+          %td
+            %span.badge{class: "badge-#{setTempStatus(f.temperature)}"}= formatNumber(f.temperature)
+          %td
+            %ul#cells
+              - f.cells.each do |c|
+                %li
+                  = link_to plant_frame_cell_url(c.frame.plant, c.frame, c) do
+                    %span.badge{class: "badge-#{setStatus(c.status)}"}= formatNumber(c.uid)

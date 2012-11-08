@@ -3,7 +3,9 @@
     %i.icon-th
     Cell:
     = @cell.uid     
-    = link_to 'back to frame', plant_frame_url(@cell.frame.plant, @cell.frame), class: 'btn btn-link'
+    = link_to plant_frame_url(@cell.frame.plant, @cell.frame), class: 'btn btn-link' do
+      %i.icon-caret-left
+      back to cell #{@cell.uid}'s frame
 
   .row
     .span5#reports.index

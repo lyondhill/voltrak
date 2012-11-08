@@ -1,17 +1,18 @@
-%h1.page-header Plants
-%table.table.table-condensed.table-hover
-  %thead
-    %tr
-      %th #
-      %th 
-        %i.icon-globe
-        Plant Name
-      %th
-        %i.icon-th-large
-        Frames
-  %tbody
-    - @plants.each_with_index do |p,i|
+#plants.index
+  %h1.page-header Plants
+  %table.table.table-condensed.table-hover
+    %thead
       %tr
-        %td= i
-        %td= link_to p.name, plant_url(p)
-        %td= p.frames.count
+        %th #
+        %th 
+          %i.icon-cogs
+          Plant Name
+        %th
+          %i.icon-th-large
+          Frames
+    %tbody
+      - @plants.each_with_index do |p,i|
+        %tr
+          %td= i+1
+          %td= link_to p.name, plant_url(p)
+          %td= p.frames.count

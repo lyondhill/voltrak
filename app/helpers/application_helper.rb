@@ -1,5 +1,13 @@
 module ApplicationHelper
 
+  def formatNumber num
+    if num < 10
+      "0#{num}"
+    else
+      num
+    end
+  end
+
   def setTempStatus temp
     if temp.between?(0, 50)
       'success'
