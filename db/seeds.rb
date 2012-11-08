@@ -73,13 +73,13 @@ if Rails.env.development?
   count = 50; num = 0
   Cell.all.each do |c|
     week_epoc = (Time.now - 1.week.ago)
-    number = 28.0
+    number = 8.0
 
     count.times do |i|
       print "#{"\r" + "\e[0K"}#{num + 1}/#{Cell.count*count} reports created........".color(:white)
       time = (Time.now - ((week_epoc / 1000) + (i * (week_epoc / 1000)) ))
-      ran = (number > 8) ? rand(number..(number + 10.0)).round(2) : 0.0
-      number = (number >= 28.0) ? 0.0 : (number + 2)
+      ran = (number > 1.0) ? rand(number..(number + 0.5)).round(5) : 0.0
+      number = (number >= 8.0) ? 0.0 : (number + 0.5)
       c.reports.create(report_time: time, voltage: ran)
       num += 1
     end
@@ -91,21 +91,21 @@ if Rails.env.development?
   puts "Completed in: #{(Time.now - t).round(2)} sec"
   puts "\n\n\n"
 
-  puts 'now running continuous data feed'.color(:yellow)
-  puts 'press ctrl + c to quit'.color(:yellow)
+  # puts 'now running continuous data feed'.color(:yellow)
+  # puts 'press ctrl + c to quit'.color(:yellow)
 
-  trap('INT') { @keep_seeding = false; puts "Bye\n\n" }
-  @keep_seeding = true
-  number = 28.0
-  while @keep_seeding 
-    sleep(1)
-    Cell.all.each do |c|
-      time = (Time.now )
-      ran = (number > 8) ? rand(number..(number + 10.0)).round(2) : 0.0
-      number = (number <= 0.0) ? 28.0 : (number - 0.1)
-      c.reports.create(report_time: time, voltage: ran)
-    end
-  end
+  # trap('INT') { @keep_seeding = false; puts "Bye\n\n" }
+  # @keep_seeding = true
+  # number = 28.0
+  # while @keep_seeding 
+  #   sleep(1)
+  #   Cell.all.each do |c|
+  #     time = (Time.now )
+  #     ran = (number > 8) ? rand(number..(number + 10.0)).round(2) : 0.0
+  #     number = (number <= 0.0) ? 28.0 : (number - 0.1)
+  #     c.reports.create(report_time: time, voltage: ran)
+  #   end
+  # end
 
 end
 
