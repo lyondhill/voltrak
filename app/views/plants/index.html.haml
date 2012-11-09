@@ -19,5 +19,5 @@
           %td= i+1
           %td= link_to p.name, plant_url(p)
           %td
-            %span.label{class: "badge-#{setTempStatus(p.temperature)}"}= formatNumber(p.temperature)
+            %span.label{class: "label-#{setTempStatus(p.temperature)}"}= formatNumber(p.temperature)
           %td= p.frames.count
