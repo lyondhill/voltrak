@@ -20,7 +20,7 @@
                   = "cell: #{c.uid}"
                   |
                   %i.icon-bolt
-                  = c.last_voltage
+                  = number_with_precision(c.last_voltage, :precision => 6)
 
       .group
         %h4 Show plots for:
