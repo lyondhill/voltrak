@@ -16,7 +16,11 @@
           - @frame.cells.each do |c|
             %li
               = link_to plant_frame_cell_url(c.frame.plant, c.frame, c) do
-                %span.label{class: "badge-#{setVoltStatus(c.frame.averate_cell_voltage,c.last_voltage)}"}= "#{c.uid} | #{(c.last_voltage)}"
+                %span.label{class: "badge-#{setVoltStatus(c.frame.averate_cell_voltage,c.last_voltage)}"}
+                  = "cell: #{c.uid}"
+                  |
+                  %i.icon-bolt
+                  = c.last_voltage
 
       .group
         %h4 Show plots for:
