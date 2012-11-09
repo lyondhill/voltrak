@@ -29,10 +29,7 @@ module ApplicationHelper
       'warning'
     end
   end
-# badge-success green
-# badge-warning yellow
-# badge-important red
-# badge-info blue
+
   def setVoltStatus avg, current
     deviation = (avg - current).abs
     if current < 0.2
