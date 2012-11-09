@@ -2,6 +2,10 @@
   %h1.page-header
     %i.icon-cogs
     = @plant.name
+    %span.label{class: "label-#{setTempStatus(@plant.temperature)}"}
+      %i.icon-fire
+      = formatNumber(@plant.temperature)
+
     = link_to plants_url, class: 'btn btn-link' do
       %i.icon-caret-left
       back to Plants
