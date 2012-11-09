@@ -21,5 +21,9 @@ class Cell
     end
     {label: self.uid.to_s, data: data}
   end
+
+  def last_voltage
+    reports.asc(:report_time).last.voltage rescue 0.0
+  end
   
 end

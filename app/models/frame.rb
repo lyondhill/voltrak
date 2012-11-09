@@ -1,7 +1,7 @@
 class Frame
   include Mongoid::Document
 
-  field :temperature, type: Integer
+  # field :temperature, type: Integer
   field :name
 
   has_many :cells
@@ -16,6 +16,10 @@ class Frame
     arr = []
     cells.each_with_index { |cell, index| arr << {index.to_s => cell.reports_hash(days)} }
     MultiJson.dump(arr)
+  end
+
+  def averate_cell_voltage
+    cells.map(&:last_voltage).sum / cells.count.to_f
   end
 
 end

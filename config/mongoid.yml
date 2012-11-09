@@ -69,8 +69,8 @@ test:
 production:
   sessions:
     default:
-      database: voltrak_test
+      database: voltrak_production
       hosts:
         - localhost:27017
       options:
-        consistency: :eventual
+        consistency: :strong

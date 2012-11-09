@@ -2,9 +2,9 @@
   %h1.page-header
     %i.icon-th-large
     Frame:     
-    %span.label{class: "badge-#{setTempStatus(@frame.temperature)}"}
-      %i.icon-fire
-      = formatNumber(@frame.temperature)
+    / %span.label{class: "badge-#{setTempStatus(@frame.temperature)}"}
+    /   %i.icon-fire
+    /   = formatNumber(@frame.temperature)
 
     = link_to plant_url(@frame.plant), class: 'btn btn-link' do
       %i.icon-caret-left
@@ -20,7 +20,7 @@
           - @frame.cells.each do |c|
             %li
               = link_to plant_frame_cell_url(c.frame.plant, c.frame, c) do
-                .label.label-info= formatNumber(c.uid)
+                %span.label{class: "badge-#{setVoltStatus(c.frame.averate_cell_voltage,c.last_voltage)}"}= "#{c.uid} | #{(c.last_voltage)}"
 
       .group
         %h4 Show plots for:

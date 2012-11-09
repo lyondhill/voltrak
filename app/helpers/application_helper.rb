@@ -5,19 +5,43 @@ module ApplicationHelper
   end
 
   def formatNumber num
-    if num < 10
-      "0#{num}"
+    if num
+      if num < 10
+        "0#{num}"
+      else
+        num
+      end
     else
-      num
+      '00'
     end
   end
 
-  def setTempStatus temp
-    if temp.between?(0, 50)
-      'success'
-    elsif temp.between?(50, 75)
+  def setTempStatus temp = nil
+    if temp
+      if temp.between?(0, 20)
+        'success'
+      elsif temp.between?(20, 40)
+        'warning'
+      elsif temp > 40
+        'important'
+      end
+    else
       'warning'
-    elsif temp > 75
+    end
+  end
+# badge-success green
+# badge-warning yellow
+# badge-important red
+# badge-info blue
+  def setVoltStatus avg, current
+    deviation = (avg - current).abs
+    if current < 0.2
+      'info'
+    elsif deviation < 0.5
+      'success'
+    elsif deviation < 1.0
+      'warning'
+    else
       'important'
     end
   end

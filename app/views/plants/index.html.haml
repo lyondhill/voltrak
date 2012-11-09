@@ -8,6 +8,8 @@
           %i.icon-cogs
           Plant Name
         %th
+          Plant Temp
+        %th
           %i.icon-th-large
           Frames
     %tbody
@@ -15,4 +17,10 @@
         %tr
           %td= i+1
           %td= link_to p.name, plant_url(p)
+          %td
+            %span.label{class: "badge-#{setTempStatus(p.temperature)}"}= formatNumber(p.temperature)
+          / %td= p.temperature
+          /   %span.label{class: "badge-#{setTempStatus(@frame.temperature)}"}
+          /     %i.icon-fire
+          /     = formatNumber(@frame.temperature)
           %td= p.frames.count

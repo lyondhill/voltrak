@@ -45,16 +45,16 @@ if Rails.env.development?
 
   print "generating plants................".color(:white)
   plants = [
-    Plant.create(name: "Singapore"),
-    Plant.create(name: "USA"),
-    Plant.create(name: "Europe")
+    Plant.create(temperature: rand(1..60), name: "Singapore"),
+    Plant.create(temperature: rand(1..60), name: "USA"),
+    Plant.create(temperature: rand(1..60), name: "Europe")
   ]
   puts " Complete! (created #{plants.count})".color(:green)
 
   print "generating frames................".color(:white)
   plants.each do |p|
     5.times do
-      p.frames.create(temperature: rand(1..100), name: (0...8).map{65.+(rand(26)).chr}.join)
+      p.frames.create(name: (0...8).map{65.+(rand(26)).chr}.join)
     end
   end
   puts " Complete! (created #{Frame.count})".color(:green)
@@ -71,14 +71,14 @@ if Rails.env.development?
   
 
   count = 50; num = 0
-  Cell.all.each do |c|
+  Cell.all.each_with_index do |c, modifier|
     week_epoc = (Time.now - 1.week.ago)
     number = 8.0
 
     count.times do |i|
       print "#{"\r" + "\e[0K"}#{num + 1}/#{Cell.count*count} reports created........".color(:white)
       time = (Time.now - ((week_epoc / 1000) + (i * (week_epoc / 1000)) ))
-      ran = (number > 1.0) ? rand(number..(number + 0.5)).round(5) : 0.0
+      ran = (number > 1.0) ? rand(number..(number + (modifier * 0.8))).round(5) : 0.0
       number = (number >= 8.0) ? 0.0 : (number + 0.5)
       c.reports.create(report_time: time, voltage: ran)
       num += 1
@@ -90,22 +90,6 @@ if Rails.env.development?
   puts "!!! Database Seed Status: #{'SUCCESS'.color(:green).bright} !!!".color(:cyan)
   puts "Completed in: #{(Time.now - t).round(2)} sec"
   puts "\n\n\n"
-
-  # puts 'now running continuous data feed'.color(:yellow)
-  # puts 'press ctrl + c to quit'.color(:yellow)
-
-  # trap('INT') { @keep_seeding = false; puts "Bye\n\n" }
-  # @keep_seeding = true
-  # number = 28.0
-  # while @keep_seeding 
-  #   sleep(1)
-  #   Cell.all.each do |c|
-  #     time = (Time.now )
-  #     ran = (number > 8) ? rand(number..(number + 10.0)).round(2) : 0.0
-  #     number = (number <= 0.0) ? 28.0 : (number - 0.1)
-  #     c.reports.create(report_time: time, voltage: ran)
-  #   end
-  # end
 
 end
 
