@@ -44,7 +44,7 @@ END
 
 # build your run list like so
 
-cat > ~/node.json <<END
+cat > ~/voltrak_node.json <<END
 {
   "run_list": [ "recipe[ubuntu]","recipe[ruby]","recipe[mongodb]","recipe[redis]" ]
 }
@@ -52,7 +52,7 @@ END
 
 # run chef solo like this
 
-chef-solo -j ~/node.json
+chef-solo -j ~/voltrak_node.json
 echo '********************'
 echo 'now run the bundle command'
 echo '********************'
