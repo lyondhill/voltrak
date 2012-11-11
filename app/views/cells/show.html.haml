@@ -1,7 +1,6 @@
 #cells.cell
   %h1.page-header
     %i.icon-th
-    Cell:
     = @cell.uid     
     = link_to plant_frame_url(@cell.frame.plant, @cell.frame), class: 'btn btn-link' do
       %i.icon-caret-left
