@@ -12,7 +12,7 @@ $ ->
       lines:
         show: true
       points:
-        show: true
+        show: false
 
     grid:
       hoverable: true
