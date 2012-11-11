@@ -7,12 +7,12 @@ module ApplicationHelper
   def formatNumber num
     if num
       if num < 10
-        "0#{num}"
+        "#{num}°C"
       else
         num
       end
     else
-      '00'
+      '0°C'
     end
   end
 
