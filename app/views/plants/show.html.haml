@@ -4,7 +4,7 @@
     = @plant.name
     %span.label{class: "label-#{setTempStatus(@plant.temperature)}"}
       %i.icon-fire
-      = formatNumber(@plant.temperature)
+      = "#{formatNumber(@plant.temperature)}°C"
 
     = link_to plants_url, class: 'btn btn-link' do
       %i.icon-caret-left
