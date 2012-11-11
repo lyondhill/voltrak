@@ -78,7 +78,7 @@ if Rails.env.development?
     count.times do |i|
       print "#{"\r" + "\e[0K"}#{num + 1}/#{Cell.count*count} reports created........".color(:white)
       time = (Time.now - ((week_epoc / 1000) + (i * (week_epoc / 1000)) ))
-      ran = (number > 1.0) ? rand(number..(number + (modifier * 0.8))).round(5) : 0.0
+      ran = (number > 1.0) ? rand(number..(number + (modifier * 0.3))).round(5) : 0.0
       number = (number >= 8.0) ? 0.0 : (number + 0.5)
       c.reports.create(report_time: time, voltage: ran)
       num += 1
