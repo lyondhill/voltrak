@@ -12,4 +12,4 @@
   - if @cell
     %li
       %span.divider >
-      = link_to "Cell: #{@cell.uid}", plant_frame_cell_url(@cell.frame.plant, @cell.frame, @cell)
+      = link_to "#{@cell.uid}", plant_frame_cell_url(@cell.frame.plant, @cell.frame, @cell)
