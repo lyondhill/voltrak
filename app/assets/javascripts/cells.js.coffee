@@ -12,7 +12,7 @@ $ ->
       lines:
         show: true
       points:
-        show: true
+        show: false
 
     grid:
       hoverable: true
@@ -72,8 +72,9 @@ $ ->
           $("#tooltip").remove()
           x = item.datapoint[0].toFixed(2)
           y = item.datapoint[1].toFixed(2)
+          time = new Date(x*1000);
 
-          showTooltip item.pageX, item.pageY, item.series.label + " of #{x} = #{y}"
+          showTooltip item.pageX, item.pageY, "#{y} at #{time.getHours()}:#{time.getMinutes()}"
       else
         $("#tooltip").remove()
         previousPoint = null

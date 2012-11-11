@@ -17,10 +17,10 @@
             %li
               = link_to plant_frame_cell_url(c.frame.plant, c.frame, c) do
                 %span.label{class: "label-#{setVoltStatus(c.frame.averate_cell_voltage, c.last_voltage)}"}
-                  = "cell: #{c.uid}"
+                  = "#{c.uid}"
                   |
                   %i.icon-bolt
-                  = number_with_precision(c.last_voltage, :precision => 12)
+                  = number_with_precision(c.last_voltage, :precision => 2)
 
       .group
         %h4 Show plots for:
