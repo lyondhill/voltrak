@@ -142,9 +142,9 @@ if Rails.env.development?
 
   print "generating plants................".color(:white)
   plants = [
-    # Plant.create(temperature: rand(1..60), name: "Singapore"),
-    # Plant.create(temperature: rand(1..60), name: "USA"),
-    Plant.create(temperature: rand(1..60), name: "Europe")
+    # Plant.create(temperature: rand(1..60), name: "Bolivia"),
+    # Plant.create(temperature: rand(1..60), name: "Mexico"),
+    Plant.create(temperature: rand(1..60), name: "India")
   ]
   puts " Complete! (created #{plants.count})".color(:green)
 
