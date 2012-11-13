@@ -1,6 +1,8 @@
 .nav.nav-pills
   %li.disabled
-    = link_to '1464 Hoff Industrial Drive, O\'Fallon, MO, 63303', '#'
+    = link_to '#' do
+      = image_tag('footer.png')
+      %span 1464 Hoff Industrial Drive, O'Fallon, MO, 63303
   %li.disabled.pull-right
     = link_to '#' do
       %span &copy; #{Time.now.year}
