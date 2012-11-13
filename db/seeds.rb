@@ -150,16 +150,16 @@ if Rails.env.development?
 
   print "generating frames................".color(:white)
   plants.each do |p|
-    5.times do
-      p.frames.create(name: (0...8).map{65.+(rand(26)).chr}.join)
+    ('A'..'F').to_a.each do |letter|
+      p.frames.create(name: "Frame #{letter}")
     end
   end
   puts " Complete! (created #{Frame.count})".color(:green)
 
   print "generating cells.................".color(:white)
   Frame.all.each do |f|
-    5.times do
-      f.cells.create(status: [:errored, :active, :inactive].sample, uid: rand(1..100))
+    15.times do |num|
+      f.cells.create(status: [:errored, :active, :inactive].sample, uid: "#{'0' if num < 9}#{num + 1}")
     end
   end
   puts " Complete! (created #{Cell.count})".color(:green)
@@ -172,31 +172,31 @@ if Rails.env.development?
   high = 4.0
   low = 2.0
   Cell.all.each_with_index do |c, modifier|
-    time = 1.week.ago
-    # total = ((Time.now.to_i - week_epoc.to_i) / 30) * Cell.count
-    start = on_count
-    up = true
-    while time < Time.now
-      time += 30
-      if up
-        ran = (((start.to_f / on_count) * (high - low)) + low) * ((rand(0.8..1.2)))
-        c.reports.create(report_time: time, voltage: ran)
-        if start <= 0 
-          up = false 
-          start = off_count
-        end
-      else
-        if start <= 0
-          up = true
-          start = on_count
-        end
-        c.reports.create(report_time: time, voltage: 0.0)
-      end
-      # print "#{"\r" + "\e[0K"}#{i + 1}/#{total} reports created........".color(:white)
-      start -= 1
+    # time = 1.week.ago
+    # # total = ((Time.now.to_i - week_epoc.to_i) / 30) * Cell.count
+    # start = on_count
+    # up = true
+    # while time < Time.now
+    #   time += 30
+    #   if up
+    #     ran = (((start.to_f / on_count) * (high - low)) + low) * ((rand(0.8..1.2)))
+    #     c.reports.create(report_time: time, voltage: ran)
+    #     if start <= 0 
+    #       up = false 
+    #       start = off_count
+    #     end
+    #   else
+    #     if start <= 0
+    #       up = true
+    #       start = on_count
+    #     end
+    #     c.reports.create(report_time: time, voltage: 0.0)
+    #   end
+    #   # print "#{"\r" + "\e[0K"}#{i + 1}/#{total} reports created........".color(:white)
+    #   start -= 50
+      c.reports.create(report_time: Time.now, voltage: rand(0.8..1.2))
       
-      
-    end
+    # end
     # count.times do |i|
     #   time = (Time.now - ((week_epoc / 1000) + (i * (week_epoc / 1000)) ))
     #   ran = (number > 1.0) ? rand(number..(number + (modifier * 0.4))).round(5) : 0.0
