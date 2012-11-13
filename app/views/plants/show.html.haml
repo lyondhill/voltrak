@@ -1,9 +1,9 @@
 #plants.show
   %h1.page-header
-    %i.icon-tint
+    %i.icon-sitemap
     = @plant.name
     %span.label{class: "label-#{setTempStatus(@plant.temperature)}"}
-      %i.icon-fire
+      %i.icon-dashboard
       = "#{formatNumber(@plant.temperature)}°C"
 
     = link_to plants_url, class: 'btn btn-link' do
@@ -15,10 +15,10 @@
       %tr
         %th #
         %th 
-          %i.icon-th-large
+          %i.icon-th
           Frame
         %th 
-          %i.icon-th
+          %i.icon-pause
           Cells
     %tbody
       - @frames.each_with_index do |f,i|

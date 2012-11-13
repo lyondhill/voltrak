@@ -18,7 +18,7 @@ class Report
       if last_report = FiveMinuteReport.asc(:report_time).last.try(:report_time)
         result = Report.where(:report_time.gte => (last_report + 3.minutes)).map_reduce(five_min_map, reduce).finalize(finalize).out(inline: 1)
       else
-        result = Report.map_reduce(map, reduce).finalize(finalize).out(inline: 1)
+        result = Report.map_reduce(five_min_map, reduce).finalize(finalize).out(inline: 1)
       end
       result.each do |r|
         FiveMinuteReport.create(
@@ -32,7 +32,7 @@ class Report
       if last_report = HourlyReport.asc(:report_time).last.try(:report_time)
         result = Report.where(:report_time.gte => (last_report + 30.minutes)).map_reduce(hourly_map, reduce).finalize(finalize).out(inline: 1)
       else
-        result = Report.map_reduce(map, reduce).finalize(finalize).out(inline: 1)
+        result = Report.map_reduce(hourly_map, reduce).finalize(finalize).out(inline: 1)
       end
       result.each do |r|
         HourlyReport.create(
@@ -66,7 +66,7 @@ class Report
             sum: this.voltage
           };
           key = this.report_time
-          key.setMinutes ((parseInt(key.getMinutes() / 5)) * 5);
+          key.setMinutes ((parseInt(key.getMinutes() / 15)) * 15);
           key.setSeconds (0);
           emit(key + '|' + this.cell_id, agg);
         }
