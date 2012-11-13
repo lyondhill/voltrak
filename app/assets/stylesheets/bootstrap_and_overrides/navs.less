@@ -1,0 +1,15 @@
+// mixins
+@import "_utils";
+@import "_vars";
+
+.nav                      {
+  &.nav-pills             {font-size:12px;
+    li                    {
+      a                   {
+        &:hover           {background:none;}
+      }
+
+      &.divider-vertical  {width:1px; height:21px; margin:5px 0px; background:@app-gray-0;}
+    }
+  }
+}

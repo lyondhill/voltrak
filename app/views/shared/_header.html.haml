@@ -1,15 +1,21 @@
-%ul.breadcrumb
-  %li
-    = link_to 'Plants', plants_url
-  - if @plant
+.navbar
+  .navbar-inner
+    = link_to plants_url do
+      = image_tag('header.png')
+
+-#
+  %ul.breadcrumb
     %li
-      %span.divider >
-      = link_to @plant.name, plant_url(@plant)
-  - if @frame
-    %li
-      %span.divider >
-      = link_to "Frame", plant_frame_url(@frame.plant, @frame)
-  - if @cell
-    %li
-      %span.divider >
-      = link_to "#{@cell.uid}", plant_frame_cell_url(@cell.frame.plant, @cell.frame, @cell)
+      = link_to 'Plants', plants_url
+    - if @plant
+      %li
+        %span.divider >
+        = link_to @plant.name, plant_url(@plant)
+    - if @frame
+      %li
+        %span.divider >
+        = link_to "Frame", plant_frame_url(@frame.plant, @frame)
+    - if @cell
+      %li
+        %span.divider >
+        = link_to "#{@cell.uid}", plant_frame_cell_url(@cell.frame.plant, @cell.frame, @cell)
