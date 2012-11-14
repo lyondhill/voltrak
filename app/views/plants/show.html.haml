@@ -27,7 +27,7 @@
           %td= link_to f.name, plant_frame_url(f.plant,f)
           %td
             %ul#cells
-              - f.cells.each do |c|
+              - f.cells.asc(:uid).each do |c|
                 %li
                   = link_to plant_frame_cell_url(c.frame.plant, c.frame, c) do
                     %span.label{class: "label-#{setVoltStatus(c.frame.averate_cell_voltage, c.last_voltage)}"} #{c.uid}

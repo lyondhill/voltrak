@@ -19,7 +19,7 @@ class Frame
   end
 
   def averate_cell_voltage
-    cells.map(&:last_voltage).sum / cells.count.to_f
+    @average ||= cells.map(&:last_voltage).sum / cells.count.to_f
   end
 
 end

@@ -25,7 +25,7 @@ class Cell
   end
 
   def last_voltage
-    reports.asc(:report_time).last.voltage rescue 0.0
+    @last ||= reports.asc(:report_time).last.voltage rescue 0.0
   end
   
 end

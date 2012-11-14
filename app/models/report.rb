@@ -30,9 +30,9 @@ class Report
 
     def reduce_hourly
       if last_report = HourlyReport.asc(:report_time).last.try(:report_time)
-        result = Report.where(:report_time.gte => (last_report + 30.minutes)).map_reduce(hourly_map, reduce).finalize(finalize).out(inline: 1)
+        result = FiveMinuteReport.where(:report_time.gte => (last_report + 30.minutes)).map_reduce(hourly_map, reduce).finalize(finalize).out(inline: 1)
       else
-        result = Report.map_reduce(hourly_map, reduce).finalize(finalize).out(inline: 1)
+        result = FiveMinuteReport.map_reduce(hourly_map, reduce).finalize(finalize).out(inline: 1)
       end
       result.each do |r|
         HourlyReport.create(

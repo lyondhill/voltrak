@@ -172,37 +172,31 @@ if Rails.env.development?
   high = 4.0
   low = 2.0
   Cell.all.each_with_index do |c, modifier|
-    # time = 1.week.ago
-    # # total = ((Time.now.to_i - week_epoc.to_i) / 30) * Cell.count
-    # start = on_count
-    # up = true
-    # while time < Time.now
-    #   time += 30
-    #   if up
-    #     ran = (((start.to_f / on_count) * (high - low)) + low) * ((rand(0.8..1.2)))
-    #     c.reports.create(report_time: time, voltage: ran)
-    #     if start <= 0 
-    #       up = false 
-    #       start = off_count
-    #     end
-    #   else
-    #     if start <= 0
-    #       up = true
-    #       start = on_count
-    #     end
-    #     c.reports.create(report_time: time, voltage: 0.0)
-    #   end
-    #   # print "#{"\r" + "\e[0K"}#{i + 1}/#{total} reports created........".color(:white)
-    #   start -= 50
-      c.reports.create(report_time: Time.now, voltage: rand(0.8..1.2))
+    puts "building for cell #{modifier} of #{@cell_count ||= Cell.count}"
+    time = 1.day.ago
+    # total = ((Time.now.to_i - week_epoc.to_i) / 30) * Cell.count
+    start = on_count
+    up = true
+    while time < Time.now
+      time += 30
+      if up
+        ran = (((start.to_f / on_count) * (high - low)) + low) * ((rand(0.8..1.2)))
+        c.reports.create(report_time: time, voltage: ran)
+        if start <= 0 
+          up = false 
+          start = off_count
+        end
+      else
+        if start <= 0
+          up = true
+          start = on_count
+        end
+        c.reports.create(report_time: time, voltage: 0.0)
+      end
+      # print "#{"\r" + "\e[0K"}#{i + 1}/#{total} reports created........".color(:white)
+      start -= 1
       
-    # end
-    # count.times do |i|
-    #   time = (Time.now - ((week_epoc / 1000) + (i * (week_epoc / 1000)) ))
-    #   ran = (number > 1.0) ? rand(number..(number + (modifier * 0.4))).round(5) : 0.0
-    #   number = (number >= 8.0) ? 0.0 : (number + 0.5)
-    #   c.reports.create(report_time: time, voltage: ran)
-    # end
+    end
   end
   puts " Complete! (created #{Report.count})".color(:green)
 
