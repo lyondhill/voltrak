@@ -140,6 +140,14 @@ if Rails.env.development?
   puts "--- Begin Seeding Database ---".color(:cyan).underline
   puts "\n"
 
+  puts "Building admin user".color(:yellow)
+  puts "email: 'admin@example.com'".color(:yellow)
+  puts "password: 'password'".color(:yellow)
+  puts "These should be changed".color(:red)
+  puts 
+  
+  AdminUser.create :email => 'admin@example.com', :password => 'password', :password_confirmation => 'password'
+
   print "generating plants................".color(:white)
   plants = [
     # Plant.create(temperature: rand(1..60), name: "Bolivia"),

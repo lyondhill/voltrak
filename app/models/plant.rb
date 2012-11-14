@@ -6,6 +6,4 @@ class Plant
 
   has_many :frames
 
-
-
 end

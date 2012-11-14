@@ -1,5 +1,9 @@
 Voltrak::Application.routes.draw do
   
+  ActiveAdmin.routes(self)
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
   resources :plants do
     resources :frames do
       get :get_cell_reports, on: :member

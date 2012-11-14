@@ -15,7 +15,9 @@ gem 'multi_json'    # JSON encoder selector
 gem 'draper'
 gem 'puma'
 # gem 'rabl'          # Rails API language
-gem 'fnordmetric'
+# gem 'fnordmetric'
+gem "activeadmin-mongoid",  git: "git://github.com/elia/activeadmin-mongoid.git"
+gem 'devise'
 
 gem 'pry-rails'
 
@@ -35,7 +37,7 @@ group :assets do
   # gem 'jquery-ui-rails'
   # gem 'normalize-rails'
   # gem 'responders'
-  # gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass-rails',   '~> 3.2.3'
   gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
   gem 'twitter-bootstrap-rails'
 
