@@ -1,24 +1,14 @@
 #!/bin/bash
 
 echo '********************'
-echo 'pulling git_repo'
-echo '********************'
-
-mkdir -p /var/www
-
-chdir /var/www
-
-git clone git://github.com/lyondhill/voltrak.git
-
-chdir /var/www/voltrak
-
-echo '********************'
 echo 'now run the bundle command'
 echo '********************'
 
 chdir /var/www/voltrak
 bundle install
 
+RAILS_ENV=production bundle exec rake assets:precompile
+RAILS_ENV=production bundle exec rake db:seed
 echo '********************'
 echo 'Finally move the startup script'
 echo '********************'
