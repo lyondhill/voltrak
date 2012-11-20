@@ -24,7 +24,7 @@ class Cell
         [r.report_time.to_i, r.voltage]
       end
     else
-      data = hourly_report.where(:report_time.gte => days.days.ago).only(:report_time, :voltage).asc(:report_time).map do |r|
+      data = hourly_reports.where(:report_time.gte => days.days.ago).only(:report_time, :voltage).asc(:report_time).map do |r|
         [r.report_time.to_i, r.voltage]
       end
     end
