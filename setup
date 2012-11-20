@@ -23,7 +23,7 @@ echo '********************'
 echo 'Finally move the startup script'
 echo '********************'
 
-curl -o /etc/init/voltrak.conf https://raw.github.com/lyondhill/voltrak/master/etc/init/voltrak.conf
+cp etc/init/* /etc/init
 
 service voltrak start
 
@@ -32,8 +32,3 @@ echo '--------------------'
 echo 'FINNISHED!'
 echo '--------------------'
 echo '********************'
-
-
-
-
-

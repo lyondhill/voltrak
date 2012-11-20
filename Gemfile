@@ -14,6 +14,12 @@ gem 'oj'            # a fast JSON parser
 gem 'multi_json'    # JSON encoder selector
 gem 'draper'
 gem 'puma'
+
+gem 'qu-rails'
+gem 'qu-redis'
+
+gem 'clockwork'
+
 # gem 'rabl'          # Rails API language
 # gem 'fnordmetric'
 gem "activeadmin-mongoid",  git: "git://github.com/elia/activeadmin-mongoid.git"
