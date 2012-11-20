@@ -54,6 +54,13 @@ $ ->
       plotData()
     )
 
+  choices.find('input').on 'click', (event) ->
+    plotAccordingToChoices()
+
+  $('#btn-checkall').on 'click', (event) ->
+    choices.find('input').attr('checked', 'checked')
+    plotAccordingToChoices()
+
   plotData = ->
     # read returned JSON
     $.each datasets, (k, v) ->
@@ -70,13 +77,6 @@ $ ->
       # hard-code colors so they don't change as you toggle them on/off
       v[k].color = i
       ++i
-
-    choices.find('input').on 'click', (event) ->
-      plotAccordingToChoices()
-
-    $('#btn-checkall').on 'click', (event) ->
-      choices.find('input').attr('checked', 'checked')
-      plotAccordingToChoices()
 
     previousPoint = null
     canvas.bind "plothover", (event, pos, item) ->
