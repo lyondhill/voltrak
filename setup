@@ -23,7 +23,7 @@ echo '********************'
 echo 'Finally move the startup script'
 echo '********************'
 
-cp etc/init/* /etc/init
+cp -f etc/init/* /etc/init
 
 service voltrak start
 service voltrak-worker start
