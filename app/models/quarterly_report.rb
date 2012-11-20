@@ -35,7 +35,7 @@ class QuarterlyReport
       display 'done!'
     rescue => e
       display 'ERROR: ' + e.message
-      display e.backtrace
+      e.backtrace.each {|line| display line}
     end
 
 
