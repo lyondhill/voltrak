@@ -19,7 +19,7 @@ class Cell
   end
 
   def reports_hash(days = 1)
-    if day <= 1
+    if days <= 1
       data = quarterly_reports.where(:report_time.gte => days.days.ago).only(:report_time, :voltage).asc(:report_time).map do |r|
         [r.report_time.to_i, r.voltage]
       end

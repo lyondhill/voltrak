@@ -26,6 +26,8 @@ echo '********************'
 cp etc/init/* /etc/init
 
 service voltrak start
+service voltrak-worker start
+service voltrak-clock start
 
 echo '********************'
 echo '--------------------'
