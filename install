@@ -39,6 +39,13 @@ cat > ~/voltrak_node.json <<END
 }
 END
 
+
+mkdir -p /var/www
+
+chdir /var/www
+
+git clone git://github.com/lyondhill/voltrak.git
+
 # run chef solo like this
 
 chef-solo -j ~/voltrak_node.json
