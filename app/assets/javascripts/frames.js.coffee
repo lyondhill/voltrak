@@ -8,6 +8,7 @@ $ ->
   choices         = $("#choices")
   colors          = []
   datasets        = null
+  canvas          = $("#cells_flot")
 
   plot_options =
     series:
@@ -26,7 +27,34 @@ $ ->
       mode: 'time'
       tickDecimals: 0
 
-  plotData: ->
+  # request json data on initial page load
+  jqxhr = $.getJSON( canvas.data('json-route') , (data) ->
+    datasets = data
+  ).success(->
+  ).error(->
+    console.log "error"
+  ).complete(->
+    plotData()
+  )
+
+  # load new json data based on time frame
+  $('#frames.frame').on 'click', '.btn-info', (e) ->
+    # is there a better (flottier) way to do this?
+    
+
+    $('#frames.frame').find('.btn-info').removeClass('active')
+    $(e.target).addClass('active')
+
+    jqxhr = $.getJSON( $(@).data('json-route') , (data) ->
+      datasets = data
+    ).success(->
+    ).error(->
+      console.log "error"
+    ).complete(->
+      plotData()
+    )
+
+  plotData = ->
     # read returned JSON
     $.each datasets, (k, v) ->
       #insert checkboxes
@@ -51,7 +79,7 @@ $ ->
       plotAccordingToChoices()
 
     previousPoint = null
-    $("#cells_flot").bind "plothover", (event, pos, item) ->
+    canvas.bind "plothover", (event, pos, item) ->
 
       $("#x").text pos.x.toFixed(2)
       $("#y").text pos.y.toFixed(2)
@@ -73,6 +101,7 @@ $ ->
 
     plotAccordingToChoices()
 
+
   # build plot
   plotAccordingToChoices = ->
     data = []
@@ -82,12 +111,14 @@ $ ->
       data.push datasets[key][key] if key and datasets[key][key]
 
     if data.length > 0
-      plot = $.plot $("#cells_flot"), data, plot_options
+      plot = $.plot canvas, data, plot_options
 
       series = plot.getData()
       $.each series, (i,e) ->
         colors.push series[i].color
     
+
+  # show flot tooltip
   showTooltip = (x, y, contents, color) ->
     $("<div id='tooltip'>#{contents}</div>").css(
       position:           "absolute"
@@ -101,29 +132,7 @@ $ ->
       opacity:            1
     ).appendTo("body").fadeIn 250
 
+
+  # format UNIX times
   formatTime = (UNIX_timestamp) ->
     time = UNIX_timestamp*1000
-
-  # request json data on initial page load
-  jqxhr = $.getJSON( $("#cells_flot").data('json-route') , (data) ->
-    datasets = data
-  ).success(->
-  ).error(->
-    console.log "error"
-  ).complete(->
-    plotData()
-  )
-
-  # load new json data based on time frame
-  $('#frames.frame').on 'click', '.btn-info', ->
-    jqxhr = $.getJSON( @.data('json-route') , (data) ->
-      datasets = data
-    ).success(->
-    ).error(->
-      console.log "error"
-    ).complete(->
-      plotData()
-    )
-
-
-
