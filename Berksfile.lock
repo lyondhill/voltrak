@@ -1,0 +1,3 @@
+cookbook 'apt', :locked_version => '1.5.0'
+cookbook 'build-essential', :locked_version => '1.2.0'
+cookbook 'ruby_build', :git => 'git://github.com/fnichol/chef-ruby_build.git', :ref => 'c38d86966694b85db291625b245722208b40b61e'

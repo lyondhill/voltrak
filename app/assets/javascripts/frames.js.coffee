@@ -8,9 +8,8 @@ $ ->
   choices         = $("#choices")
   colors          = []
   datasets        = null
-  json_route      = $("#cells_flot").data('json-route')
 
-  plot_options    =
+  plot_options =
     series:
       lines:
         show: true
@@ -27,45 +26,7 @@ $ ->
       mode: 'time'
       tickDecimals: 0
 
-  # build plot
-  plotAccordingToChoices = ->
-    data = []
-    choices.find('input:checked').each ->
-      key = $(this).attr("name")
-
-      data.push datasets[key][key] if key and datasets[key][key]
-
-    if data.length > 0
-      plot = $.plot $("#cells_flot"), data, plot_options
-
-      series = plot.getData()
-      $.each series, (i,e) ->
-        colors.push series[i].color
-    
-  showTooltip = (x, y, contents, color) ->
-    $("<div id='tooltip'>#{contents}</div>").css(
-      position:           "absolute"
-      display:            "none"
-      top:                y - 10
-      left:               x + 15
-      color:              "#FFFFFF"
-      border:             "1px solid #333333"
-      padding:            "2px"
-      "background-color": colors[color]
-      opacity:            1
-    ).appendTo("body").fadeIn 250
-
-  formatTime = (UNIX_timestamp) ->
-    time = UNIX_timestamp*1000
-
-  # request json data
-  jqxhr = $.getJSON( json_route, (data) ->
-    datasets = data
-  ).success(->
-  ).error(->
-    console.log "error"
-  ).complete(->
-
+  plotData: ->
     # read returned JSON
     $.each datasets, (k, v) ->
       #insert checkboxes
@@ -111,5 +72,58 @@ $ ->
         previousPoint = null
 
     plotAccordingToChoices()
+
+  # build plot
+  plotAccordingToChoices = ->
+    data = []
+    choices.find('input:checked').each ->
+      key = $(this).attr("name")
+
+      data.push datasets[key][key] if key and datasets[key][key]
+
+    if data.length > 0
+      plot = $.plot $("#cells_flot"), data, plot_options
+
+      series = plot.getData()
+      $.each series, (i,e) ->
+        colors.push series[i].color
+    
+  showTooltip = (x, y, contents, color) ->
+    $("<div id='tooltip'>#{contents}</div>").css(
+      position:           "absolute"
+      display:            "none"
+      top:                y - 10
+      left:               x + 15
+      color:              "#FFFFFF"
+      border:             "1px solid #333333"
+      padding:            "2px"
+      "background-color": colors[color]
+      opacity:            1
+    ).appendTo("body").fadeIn 250
+
+  formatTime = (UNIX_timestamp) ->
+    time = UNIX_timestamp*1000
+
+  # request json data on initial page load
+  jqxhr = $.getJSON( $("#cells_flot").data('json-route') , (data) ->
+    datasets = data
+  ).success(->
+  ).error(->
+    console.log "error"
+  ).complete(->
+    plotData()
   )
+
+  # load new json data based on time frame
+  $('#frames.frame').on 'click', '.btn-info', ->
+    jqxhr = $.getJSON( @.data('json-route') , (data) ->
+      datasets = data
+    ).success(->
+    ).error(->
+      console.log "error"
+    ).complete(->
+      plotData()
+    )
+
+
 
