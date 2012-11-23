@@ -11,6 +11,10 @@ if Rails.env.production?
   puts "username: 'admin@admin.com'"
   puts "password: 'password'"
   puts "These should be changed by going to /admin"
+
+  Report.create
+  QuarterlyReport.create
+  HourlyReport.create
 end
 
 
