@@ -123,6 +123,13 @@ if Rails.env.development?
   end
   puts " Complete! (created #{Report.count})".color(:green)
 
+  puts "aggrigating reports"
+
+  QuarterlyReport.perform
+  HourlyReport.perform
+
+  puts " Complete! (created #{QuarterlyReport.count})".color(:green)
+
   puts "\n"
   puts "!!! Database Seed Status: #{'SUCCESS'.color(:green).bright} !!!".color(:cyan)
   puts "Completed in: #{(Time.now - t).round(2)} sec"
