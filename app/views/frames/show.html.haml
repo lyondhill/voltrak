@@ -33,6 +33,7 @@
           Check All
     
     .span8.chart
+      %h4 
       .row
         #cells_flot{style: 'width:800px; height:400px', data: {'json-route' => get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 1})}}
 

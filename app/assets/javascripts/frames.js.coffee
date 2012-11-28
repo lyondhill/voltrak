@@ -105,6 +105,7 @@ $ ->
   # build plot
   plotAccordingToChoices = ->
     data = []
+    
     choices.find('input:checked').each ->
       key = $(this).attr("name")
 
