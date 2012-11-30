@@ -8,7 +8,7 @@ $ ->
   choices         = $("#choices")
   colors          = []
   datasets        = null
-  canvas          = $("#cells_flot")
+  canvas          = $("#cells-flot")
 
   plot_options =
     series:
@@ -38,21 +38,13 @@ $ ->
   )
 
   # load new json data based on time frame
-  $('#frames.frame').on 'click', '.btn-info', (e) ->
-    # is there a better (flottier) way to do this?
+  $('#timeframe-select').find('a').on 'ajax:success', () ->
+    resetFlot()
+
+    $('#timeframe').text($(this).text())
     
-
-    $('#frames.frame').find('.btn-info').removeClass('active')
-    $(e.target).addClass('active')
-
-    jqxhr = $.getJSON( $(@).data('json-route') , (data) ->
-      datasets = data
-    ).success(->
-    ).error(->
-      console.log "error"
-    ).complete(->
-      plotData()
-    )
+    datasets = arguments[1]
+    plotAccordingToChoices()
 
   choices.find('input').on 'click', (event) ->
     plotAccordingToChoices()
@@ -68,11 +60,11 @@ $ ->
       choices.append "<label for='id#{k}'><input type='checkbox' name='#{k}' checked='checked' id='id#{k}'><i class='icon-pause'></i> #{v[k].label}</label>"
 
       # format time to readable
-      console.log v[k]["data"]
+      # console.log v[k]["data"]
       $.each v[k]["data"], (k,v) ->
         v[0] = formatTime v[0]
 
-      console.log v[k]["data"]
+      # console.log v[k]["data"]
       
       # hard-code colors so they don't change as you toggle them on/off
       v[k].color = i
@@ -104,6 +96,8 @@ $ ->
 
   # build plot
   plotAccordingToChoices = ->
+    resetFlot()
+
     data = []
     
     choices.find('input:checked').each ->
@@ -112,11 +106,18 @@ $ ->
       data.push datasets[key][key] if key and datasets[key][key]
 
     if data.length > 0
+      console.log "PLOT"
+
       plot = $.plot canvas, data, plot_options
 
       series = plot.getData()
       $.each series, (i,e) ->
         colors.push series[i].color
+
+
+  resetFlot = () ->
+    console.log "RESET"
+    $.plot(canvas, [], plot_options)
     
 
   # show flot tooltip
@@ -136,4 +137,5 @@ $ ->
 
   # format UNIX times
   formatTime = (UNIX_timestamp) ->
+    # console.log "FORMAT TIME"
     time = UNIX_timestamp*1000

@@ -1,5 +1,5 @@
 @import "twitter/bootstrap/bootstrap";
-@import "twitter/bootstrap/responsive";
+// @import "twitter/bootstrap/responsive";
 
 // Set the correct sprite paths
 // @iconSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings.png");
@@ -43,7 +43,7 @@ a                       {
 }
 
 [class^="icon-"],
-[class*="icon-"]        {width:auto; height:auto; vertical-align:0px;}
+[class*="icon-"]        {width:auto; height:auto; vertical-align:0px; line-height:normal;}
 
 input[type="checkbox"]  {margin:0px 5px 0px 0px;}
 
@@ -61,6 +61,7 @@ header                  {
 }
 
 .container              {padding-bottom:50px;}
+.row                    {margin:0px;}
 
 footer                  {position:fixed; bottom:0px; left:0px; width:100%; background:@app-gray-0;
   .nav-pills            {margin:0px; padding:8px;
@@ -71,5 +72,3 @@ footer                  {position:fixed; bottom:0px; left:0px; width:100%; backg
     }
   }
 }
-
-// .row                    {margin:0px;}

@@ -6,50 +6,41 @@
       %i.icon-caret-left
       back to #{@frame.plant.name}'s frames
 
-  .row
-    .span2.controls
-      .group
-        %h4 View Cell:
-        %hr
+  %hgroup
+    %h4 Cell Plots:
+    %h6 The chart below graphs all of the frames cells. Toggle different cells to plot, or click on a cell to view its details.
 
-        %ul#cells.index
-          - @frame.cells.each do |c|
-            %li
-              = link_to plant_frame_cell_url(c.frame.plant, c.frame, c) do
-                %span.label{class: "label-#{setVoltStatus(c.frame.averate_cell_voltage, c.last_voltage)}"}
-                  = "#{c.uid}"
-                  |
-                  %i.icon-bolt
-                  = number_with_precision(c.last_voltage, :precision => 2)
+  .btn-group#timeframe-select
+    %button.btn.btn-info
+      %i.icon-time
+      %span#timeframe 24 Hours
+    %button.btn.btn-info.dropdown-toggle{ data: { toggle: "dropdown" } }
+      %span.caret
+    %ul.dropdown-menu
+      %li= link_to '12 Hours',  get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 0.5}), remote: true
+      %li= link_to '24 Hours',  get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 1}),   remote: true
+      %li= link_to '7 Days',    get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 7}),   remote: true
+      %li= link_to '14 Days',   get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 14}),  remote: true
 
-      .group
-        %h4 Show plots for:
-        %hr
+  %hr
 
-        #choices
+  .span2.controls
+    .group
+      %ul#cells.index
+        - @frame.cells.each do |c|
+          %li
+            = link_to plant_frame_cell_url(c.frame.plant, c.frame, c) do
+              %span.label{class: "label-#{setVoltStatus(c.frame.averate_cell_voltage, c.last_voltage)}"}
+                = "#{c.uid}"
+                |
+                %i.icon-bolt
+                = number_with_precision(c.last_voltage, :precision => 2)
+  
+  .span9.chart
+    -# choices are build by flot
+    #choices
+    %button.btn.btn-success.btn-mini#btn-checkall
+      %i.icon-ok
+      Check All
 
-        %button.btn.btn-success.btn-mini#btn-checkall
-          %i.icon-ok
-          Check All
-    
-    .span8.chart
-      %h4 
-      .row
-        #cells_flot{style: 'width:800px; height:400px', data: {'json-route' => get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 1})}}
-
-    .span2
-      %button.btn.btn-info{ data: { 'json-route' => get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 0.5})}}
-        %i.icon-time
-        12 Hours 
-      %button.btn.btn-info.active{ data: { 'json-route' => get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 1})}}
-        %i.icon-time
-        24 Hours 
-      %button.btn.btn-info{ data: { 'json-route' => get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 7})}}
-        %i.icon-time
-        7 Days 
-      %button.btn.btn-info{ data: { 'json-route' => get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 14})}}
-        %i.icon-time
-        14 Days 
-    
-
-    
+    #cells-flot{style: 'width:600px; height:300px', data: {'json-route' => get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 1})}}

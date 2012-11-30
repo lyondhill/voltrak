@@ -4,7 +4,7 @@ class PlantsController < ApplicationController
     if Plant.count == 1
       redirect_to(plant_url(Plant.first))
     else
-    @plants = Plant.all
+      @plants = Plant.all
     end
   end
 
