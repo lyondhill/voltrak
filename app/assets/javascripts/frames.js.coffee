@@ -4,13 +4,41 @@
 
 $ ->
 
+  spinnerOptions = 
+    lines:      9
+    length:     4
+    width:      6
+    radius:     10
+    corners:    1
+    rotate:     0
+    color:      '#000'
+    speed:      1
+    trail:      50
+    shadow:     false
+    hwaccel:    false
+    className:  'spinner'
+    zIndex:     2e9
+    top:        'auto'
+    left:       'auto'
+
+  target  = $('.chart');
+  spinner = new Spinner(spinnerOptions).spin();
+  target.append(spinner.el);
+
+
+
+
+
+
+
+
   i               = 0
   choices         = $("#choices")
   colors          = []
   datasets        = null
   canvas          = $("#cells-flot")
 
-  plot_options =
+  plotOptions =
     series:
       lines:
         show: true
@@ -39,25 +67,51 @@ $ ->
 
   # load new json data based on time frame
   $('#timeframe-select').find('a').on 'ajax:success', () ->
-    resetFlot()
-
     $('#timeframe').text($(this).text())
-    
+    $('#timeframe').closest('button').data('timeframe', $(this).data('timeframe'))
+
     datasets = arguments[1]
     plotAccordingToChoices()
 
-  choices.find('input').on 'click', (event) ->
+  pollData = ->
+    console.log "POLL"
+
+    route     = $('#timeframe').closest('button').data('poll')
+    timeframe = $('#timeframe').closest('button').data('timeframe')
+
+    jqxhr = $.getJSON( "#{route}?timeframe=#{timeframe}" , (data) ->
+      datasets = data
+    ).success(->
+    ).error(->
+      console.log "error"
+    ).complete(->
+      plotAccordingToChoices()
+    )
+
+  setInterval pollData, 1000
+
+
+  $('#btn-selectall').on 'click', (event) ->
+    choices.find('input').attr('checked', 'checked')
     plotAccordingToChoices()
 
-  $('#btn-checkall').on 'click', (event) ->
-    choices.find('input').attr('checked', 'checked')
+
+  $('#btn-deselectall').on 'click', (event) ->
+    choices.find('input').removeAttr('checked')
     plotAccordingToChoices()
 
   plotData = ->
     # read returned JSON
     $.each datasets, (k, v) ->
       #insert checkboxes
-      choices.append "<label for='id#{k}'><input type='checkbox' name='#{k}' checked='checked' id='id#{k}'><i class='icon-pause'></i> #{v[k].label}</label>"
+      label = $("<label for='id#{k}'>#{v[k].label}</label>")
+      input = $("<input type='checkbox' name='#{k}' checked='checked' id='id#{k}'>")
+      icon  = "<i class='icon-pause'></i>"
+
+      choices.append(label.append(input, icon))
+      
+      input.on 'change', (event) ->
+        plotAccordingToChoices()
 
       # format time to readable
       # console.log v[k]["data"]
@@ -106,9 +160,12 @@ $ ->
       data.push datasets[key][key] if key and datasets[key][key]
 
     if data.length > 0
-      console.log "PLOT"
+      # console.log "PLOT"
 
-      plot = $.plot canvas, data, plot_options
+      spinner.stop()
+      $('#choices-select').fadeIn()
+
+      plot = $.plot canvas, data, plotOptions
 
       series = plot.getData()
       $.each series, (i,e) ->
@@ -116,8 +173,8 @@ $ ->
 
 
   resetFlot = () ->
-    console.log "RESET"
-    $.plot(canvas, [], plot_options)
+    # console.log "RESET"
+    $.plot(canvas, [], plotOptions)
     
 
   # show flot tooltip

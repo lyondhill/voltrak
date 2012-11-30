@@ -11,16 +11,16 @@
     %h6 The chart below graphs all of the frames cells. Toggle different cells to plot, or click on a cell to view its details.
 
   .btn-group#timeframe-select
-    %button.btn.btn-info
+    %button.btn.btn-info{ data: { poll: get_cell_reports_plant_frame_url(@frame.plant, @frame), timeframe: 1 } }
       %i.icon-time
       %span#timeframe 24 Hours
     %button.btn.btn-info.dropdown-toggle{ data: { toggle: "dropdown" } }
       %span.caret
     %ul.dropdown-menu
-      %li= link_to '12 Hours',  get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 0.5}), remote: true
-      %li= link_to '24 Hours',  get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 1}),   remote: true
-      %li= link_to '7 Days',    get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 7}),   remote: true
-      %li= link_to '14 Days',   get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 14}),  remote: true
+      %li= link_to '12 Hours',  get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 0.5}), remote: true, data: { timeframe: 0.5 }
+      %li= link_to '24 Hours',  get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 1}),   remote: true, data: { timeframe: 1 }
+      %li= link_to '7 Days',    get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 7}),   remote: true, data: { timeframe: 7 }
+      %li= link_to '14 Days',   get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 14}),  remote: true, data: { timeframe: 14 }
 
   %hr
 
@@ -39,8 +39,14 @@
   .span9.chart
     -# choices are build by flot
     #choices
-    %button.btn.btn-success.btn-mini#btn-checkall
-      %i.icon-ok
-      Check All
+
+    .btn-group#choices-select
+      %button.btn.btn-success.btn-mini#btn-selectall
+        %i.icon-ok
+        Select All
+
+      %button.btn.btn-warning.btn-mini#btn-deselectall
+        %i.icon-remove
+        Deselect All
 
     #cells-flot{style: 'width:600px; height:300px', data: {'json-route' => get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 1})}}
