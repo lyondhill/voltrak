@@ -162,7 +162,7 @@ $ ->
       data.push datasets[key][key] if key and datasets[key][key]
 
     if data.length > 0
-      console.log "PLOT"
+      console.log "PLOT #{data}"
 
       spinner.stop()
       $('#choices-select').fadeIn()
@@ -172,7 +172,7 @@ $ ->
       series = plot.getData()
       $.each series, (i,e) ->
         colors.push series[i].color
-        $($(choices).find('label').get(i)).css('background-color', series[i].color)
+        $($(choices).find('label').get(i)).css('background-color', colors[i])
 
 
   resetFlot = () ->
