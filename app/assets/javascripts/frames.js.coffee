@@ -55,6 +55,9 @@ $ ->
       mode: 'time'
       tickDecimals: 0
 
+    legend: 
+      show: false
+
   # request json data on initial page load
   jqxhr = $.getJSON( canvas.data('json-route') , (data) ->
     datasets = data
@@ -88,8 +91,7 @@ $ ->
       plotAccordingToChoices()
     )
 
-  setInterval pollData, 10000
-
+  setInterval pollData, 5000
 
   $('#btn-selectall').on 'click', (event) ->
     choices.find('input').attr('checked', 'checked')
@@ -160,7 +162,7 @@ $ ->
       data.push datasets[key][key] if key and datasets[key][key]
 
     if data.length > 0
-      # console.log "PLOT"
+      console.log "PLOT"
 
       spinner.stop()
       $('#choices-select').fadeIn()
@@ -170,10 +172,11 @@ $ ->
       series = plot.getData()
       $.each series, (i,e) ->
         colors.push series[i].color
+        $($(choices).find('label').get(i)).css('background-color', series[i].color)
 
 
   resetFlot = () ->
-    # console.log "RESET"
+    console.log "RESET"
     $.plot(canvas, [], plotOptions)
     
 

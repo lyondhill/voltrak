@@ -13,7 +13,7 @@ namespace :rock do
         HourlyReport.perform
       end
       puts 'All done'
-      sleep(30)
+      sleep(10)
     end
   end
 end
