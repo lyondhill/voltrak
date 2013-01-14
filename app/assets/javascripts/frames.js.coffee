@@ -54,6 +54,7 @@ $ ->
     xaxis:
       mode: 'time'
       tickDecimals: 0
+      timezone: 'browser'
 
     legend: 
       show: false
@@ -80,7 +81,7 @@ $ ->
     route     = $('#timeframe').closest('button').data('poll')
     timeframe = $('#timeframe').closest('button').data('timeframe')
 
-    console.log "POLL: %o %o", route, timeframe
+    console.log "POLLING: %o %o", route, timeframe
 
     jqxhr = $.getJSON( "#{route}?timeframe=#{timeframe}" , (data) ->
       datasets = data
@@ -92,7 +93,7 @@ $ ->
       plotAccordingToChoices()
     )
 
-  setInterval pollData, 5000
+  setInterval pollData, 300000
 
   $('#btn-selectall').on 'click', (event) ->
     choices.find('input').attr('checked', 'checked')
@@ -141,9 +142,9 @@ $ ->
           y = item.datapoint[1].toFixed(2)
           time = new Date(x*1000);
           # Not tredding on your toes. just listening to suggestions.
-          showTooltip item.pageX, item.pageY, item.series.label + " at #{time.getHours()}:#{time.getMinutes()} = #{y}", datasets[item['seriesIndex']][item['seriesIndex']]['color']
+          # showTooltip item.pageX, item.pageY, item.series.label + " at #{time.getHours()}:#{time.getMinutes()} = #{y}", datasets[item['seriesIndex']][item['seriesIndex']]['color']
 
-          # showTooltip item.pageX, item.pageY, item.series.label + " of #{x} = #{y}", datasets[item['seriesIndex']][item['seriesIndex']]['color']
+          showTooltip item.pageX, item.pageY, item.series.label + " of #{x} = #{y}", datasets[item['seriesIndex']][item['seriesIndex']]['color']
       else
         $("#tooltip").remove()
         previousPoint = null
