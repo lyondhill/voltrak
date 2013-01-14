@@ -17,3 +17,23 @@ namespace :rock do
     end
   end
 end
+
+namespace :blast do
+  desc 'blast it'
+  task :it, [:frame] => [:environment] do |t, args|
+    loop do
+      frame = Frame.find(args.frame)
+      puts "FRAME: #{frame.id}"
+      frame.cells.each do |c|
+        puts "CELL: #{c.id}"
+        10.times do
+          puts "create report"
+          c.reports.create(report_time: Time.now, voltage: rand(0.0..10.0))
+        end
+      end
+      sleep(3)
+      QuarterlyReport.perform
+      HourlyReport.perform
+    end
+  end
+end

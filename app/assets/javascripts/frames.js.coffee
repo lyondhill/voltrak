@@ -63,7 +63,7 @@ $ ->
     datasets = data
   ).success(->
   ).error(->
-    console.log "error"
+    console.log "init error"
   ).complete(->
     plotData()
   )
@@ -77,16 +77,17 @@ $ ->
     plotAccordingToChoices()
 
   pollData = ->
-    console.log "POLL"
-
     route     = $('#timeframe').closest('button').data('poll')
     timeframe = $('#timeframe').closest('button').data('timeframe')
 
+    console.log "POLL: %o %o", route, timeframe
+
     jqxhr = $.getJSON( "#{route}?timeframe=#{timeframe}" , (data) ->
       datasets = data
+      console.log data
     ).success(->
     ).error(->
-      console.log "error"
+      console.log "polling error"
     ).complete(->
       plotAccordingToChoices()
     )
