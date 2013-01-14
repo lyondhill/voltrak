@@ -88,7 +88,7 @@ $ ->
       plotAccordingToChoices()
     )
 
-  setInterval pollData, 1000
+  setInterval pollData, 10000
 
 
   $('#btn-selectall').on 'click', (event) ->
@@ -187,7 +187,7 @@ $ ->
       color:              "#FFFFFF"
       border:             "1px solid #333333"
       padding:            "2px"
-      "background-color": colors[color]
+      "background-color": "#111111"
       opacity:            1
     ).appendTo("body").fadeIn 250
 
