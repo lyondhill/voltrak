@@ -1,5 +1,5 @@
 site :opscode
 
-cookbook 'apt'
-cookbook 'build-essential'
-cookbook 'ruby_build', git: 'git://github.com/fnichol/chef-ruby_build.git'
+cookbook 'ruby', git: 'git@github.com:tylerflint/chef-ruby.git'
+cookbook 'simple-mongodb', git: 'git@github.com:sdomino/chef-simple-mongodb.git'
+cookbook 'simple-redis', git: 'git@github.com:sdomino/chef-simple-redis.git'
