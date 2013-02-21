@@ -93,7 +93,12 @@ $ ->
       plotAccordingToChoices()
     )
 
-  setInterval pollData, 300000
+
+  # Very temporary so they dont get crazy dates.
+  resetLocation = ->
+    location.reload()
+
+  setInterval resetLocation, 300000
 
   $('#btn-selectall').on 'click', (event) ->
     choices.find('input').attr('checked', 'checked')
@@ -176,11 +181,9 @@ $ ->
         colors.push series[i].color
         $($(choices).find('label').get(i)).css('background-color', colors[i])
 
-
   resetFlot = () ->
     console.log "RESET"
     $.plot(canvas, [], plotOptions)
-    
 
   # show flot tooltip
   showTooltip = (x, y, contents, color) ->
@@ -195,7 +198,6 @@ $ ->
       "background-color": "#111111"
       opacity:            1
     ).appendTo("body").fadeIn 250
-
 
   # format UNIX times
   formatTime = (UNIX_timestamp) ->
