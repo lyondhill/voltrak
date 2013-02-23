@@ -55,6 +55,8 @@ $ ->
       mode: 'time'
       tickDecimals: 0
       timezone: 'browser'
+      tickFormatter: (val, axis) ->
+        new Date(val);
 
     legend: 
       show: false
@@ -123,9 +125,8 @@ $ ->
         plotAccordingToChoices()
 
       # format time to readable
-      # console.log v[k]["data"]
-      $.each v[k]["data"], (k,v) ->
-        v[0] = formatTime v[0]
+      # $.each v[k]["data"], (k,v) ->
+      #   v[0] = formatTime v[0]
 
       # console.log v[k]["data"]
       
@@ -143,13 +144,12 @@ $ ->
         unless previousPoint is item.dataIndex
           previousPoint = item.dataIndex
           $("#tooltip").remove()
-          x = item.datapoint[0].toFixed(2)
           y = item.datapoint[1].toFixed(2)
-          time = new Date(x*1000);
+          time = new Date(item.datapoint[0]);
           # Not tredding on your toes. just listening to suggestions.
-          # showTooltip item.pageX, item.pageY, item.series.label + " at #{time.getHours()}:#{time.getMinutes()} = #{y}", datasets[item['seriesIndex']][item['seriesIndex']]['color']
+          showTooltip item.pageX, item.pageY, item.series.label + " at #{time} = #{y}", datasets[item['seriesIndex']][item['seriesIndex']]['color']
 
-          showTooltip item.pageX, item.pageY, item.series.label + " of #{x} = #{y}", datasets[item['seriesIndex']][item['seriesIndex']]['color']
+          # showTooltip item.pageX, item.pageY, item.series.label + " of #{x} = #{y}", datasets[item['seriesIndex']][item['seriesIndex']]['color']
       else
         $("#tooltip").remove()
         previousPoint = null
@@ -202,4 +202,4 @@ $ ->
   # format UNIX times
   formatTime = (UNIX_timestamp) ->
     # console.log "FORMAT TIME"
-    time = UNIX_timestamp*1000
+    time = UNIX_timestamp.toFixed(2)

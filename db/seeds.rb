@@ -17,7 +17,6 @@ if Rails.env.production?
   HourlyReport.create
 end
 
-
 if Rails.env.development?
 
   def validate(o)
@@ -125,10 +124,11 @@ if Rails.env.development?
 
   puts "aggrigating reports"
 
-  QuarterlyReport.perform
+  FiveMinuteReport.perform
+  ThirtyMinuteReport.perform
   HourlyReport.perform
 
-  puts " Complete! (created #{QuarterlyReport.count})".color(:green)
+  puts " Complete! (created #{FiveMinuteReport.count})".color(:green)
 
   puts "\n"
   puts "!!! Database Seed Status: #{'SUCCESS'.color(:green).bright} !!!".color(:cyan)

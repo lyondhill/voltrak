@@ -17,6 +17,7 @@
     %button.btn.btn-info.dropdown-toggle{ data: { toggle: "dropdown" } }
       %span.caret
     %ul.dropdown-menu
+      %li= link_to '1 Hours',  get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 0.042}), remote: true, data: { timeframe: 0.042 }
       %li= link_to '12 Hours',  get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 0.5}), remote: true, data: { timeframe: 0.5 }
       %li= link_to '24 Hours',  get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 1}),   remote: true, data: { timeframe: 1 }
       %li= link_to '7 Days',    get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 7}),   remote: true, data: { timeframe: 7 }
