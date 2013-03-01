@@ -17,6 +17,7 @@ Voltrak::Application.routes.draw do
     end
   end
 
+  resources :reports, only: [:index]
 
   root :to => 'plants#index'
 

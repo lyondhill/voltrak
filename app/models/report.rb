@@ -16,6 +16,7 @@ class Report
 
   class << self
     def to_csv
+      new_hash
       CSV.generate do |csv|
         csv << %w(Frame Cell report_time voltage)
         Report.scoped.asc(:report_time).each do |report|
@@ -25,10 +26,10 @@ class Report
     end
 
     def cached_array(cell_id) 
-      if h[cell_id]
-        h[cell_id]
+      if hash[cell_id]
+        hash[cell_id]
       else
-        h[cell_id] = [Cell.find(cell_id).frame.name, Cell.find(cell_id).uid]
+        hash[cell_id] = [Cell.find(cell_id).frame.name, Cell.find(cell_id).uid]
       end
     end
 
