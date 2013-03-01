@@ -1,6 +1,6 @@
 ActiveAdmin.register Report do
   action_item do
-    link_to "Full CSV", reports_path(format: "csv"), confirm: 'This could take a very long time?'
+    link_to "Full CSV", reports_path(format: "csv")
   end
 
   index do
