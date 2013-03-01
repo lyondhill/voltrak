@@ -8,6 +8,9 @@ ActiveAdmin.register_page "Dashboard" do
         span "Voltrak Admin."
       end
     end
+    div :class => 'csv_report', :id => 'csv_reports_downloader' do
+      link_to "CSV", reports_path(format: "csv")
+    end
 
     # Here is an example of a simple dashboard with columns and panels.
     #
