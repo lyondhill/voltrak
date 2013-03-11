@@ -24,15 +24,13 @@ end
 
 git_url = node['ruby_build']['git_url']
 git_ref = node['ruby_build']['git_ref']
-upgrade_strategy  = build_upgrade_strategy(node['ruby_build']['upgrade'])
+upgrade_strategy  = node['ruby_build']['upgrade']
 
 cache_path  = Chef::Config['file_cache_path']
 src_path    = "#{cache_path}/ruby-build"
 
-unless mac_with_no_homebrew
-  Array(node['ruby_build']['install_pkgs']).each do |pkg|
-    package pkg
-  end
+Array(node['ruby_build']['install_pkgs']).each do |pkg|
+  package pkg
 end
 
 execute "Install ruby-build" do
