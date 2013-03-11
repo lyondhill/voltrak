@@ -17,10 +17,10 @@
 # limitations under the License.
 #
 
-class Chef::Recipe
-  # mix in recipe helpers
-  include Chef::RubyBuild::RecipeHelpers
-end
+# class Chef::Recipe
+#   # mix in recipe helpers
+#   include Chef::RubyBuild::RecipeHelpers
+# end
 
 git_url = node['ruby_build']['git_url']
 git_ref = node['ruby_build']['git_ref']
