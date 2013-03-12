@@ -29,7 +29,12 @@ class Report
       if hash[cell_id]
         hash[cell_id]
       else
-        hash[cell_id] = [Cell.find(cell_id).frame.name, Cell.find(cell_id).uid]
+        cell = Cell.find(cell_id) rescue nil
+        if cell
+          hash[cell_id] = [cell.frame.name, cell.uid]
+        else
+          ['unknown', '1']
+        end
       end
     end
 
