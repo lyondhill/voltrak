@@ -1,10 +1,8 @@
 #
-# Cookbook Name:: ruby_build
-# Resource:: ruby
+# Cookbook Name:: ruby
+# Recipe:: 1.9
 #
-# Author:: Fletcher Nichol <fnichol@nichol.ca>
-#
-# Copyright 2011, Fletcher Nichol
+# Copyright 2010, FindsYou Limited
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,15 +17,4 @@
 # limitations under the License.
 #
 
-actions :install, :reinstall
-
-attribute :definition,  :kind_of => String, :name_attribute => true
-attribute :prefix_path, :kind_of => String
-attribute :user,        :kind_of => String
-attribute :group,       :kind_of => String
-attribute :environment, :kind_of => Hash
-
-def initialize(*args)
-  super
-  @action = :install
-end
+ruby_packages "1.9"

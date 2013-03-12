@@ -1,26 +1,20 @@
-include_recipe 'apt'
-include_recipe 'build-essential'
-include_recipe 'ruby_build'
+#
+# Cookbook Name:: ruby
+# Recipe:: default
+#
+# Copyright 2010, FindsYou Limited
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-node[:ruby][:deps].each do |pkg|
-  package pkg do
-    action :install
-  end
-end
-
-ruby_build_ruby node[:ruby][:version] do
-  action :install
-end
-
-template '/etc/profile.d/ruby.sh' do
-  source 'ruby.sh.erb'
-  variables :ruby_path => "#{node['ruby_build']['default_ruby_base_path']}/#{node[:ruby][:version]}/bin"
-
-  mode '0644'
-end
-
-gem_package 'bundler' do
-  action :install
-  version '1.2.1'
-  gem_binary "#{node['ruby_build']['default_ruby_base_path']}/#{node[:ruby][:version]}/bin/gem"
-end
+ruby_packages node[:languages][:ruby][:default_version] || "1.8"
