@@ -8,7 +8,7 @@ ActiveAdmin.register Report do
     column :report_time
     column :voltage
     column :cell do |report|
-      report.cell.uid
+      report.cell.uid rescue nil
     end
     # default_actions
   end                                 
