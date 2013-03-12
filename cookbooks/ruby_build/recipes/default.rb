@@ -17,20 +17,22 @@
 # limitations under the License.
 #
 
-# class Chef::Recipe
-#   # mix in recipe helpers
-#   include Chef::RubyBuild::RecipeHelpers
-# end
+class Chef::Recipe
+  # mix in recipe helpers
+  include Chef::RubyBuild::RecipeHelpers
+end
 
 git_url = node['ruby_build']['git_url']
 git_ref = node['ruby_build']['git_ref']
-upgrade_strategy  = node['ruby_build']['upgrade']
+upgrade_strategy  = build_upgrade_strategy(node['ruby_build']['upgrade'])
 
 cache_path  = Chef::Config['file_cache_path']
 src_path    = "#{cache_path}/ruby-build"
 
-Array(node['ruby_build']['install_pkgs']).each do |pkg|
-  package pkg
+unless mac_with_no_homebrew
+  Array(node['ruby_build']['install_pkgs']).each do |pkg|
+    package pkg
+  end
 end
 
 execute "Install ruby-build" do
