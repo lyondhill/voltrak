@@ -5,6 +5,9 @@ echo 'now run the bundle command'
 echo '********************'
 
 chdir /var/www/voltrak
+
+gem install bundler
+
 bundle install
 
 RAILS_ENV=production bundle exec rake assets:precompile
