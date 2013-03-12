@@ -6,6 +6,8 @@ echo '********************'
 
 apt-get update
 
+apt-get install build-essential 
+
 echo '********************'
 echo 'installing chef'
 echo '********************'
