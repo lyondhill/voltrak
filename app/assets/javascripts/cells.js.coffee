@@ -43,7 +43,7 @@ $ ->
     ).appendTo("body").fadeIn 250
 
   formatTime = (UNIX_timestamp) ->
-    time = UNIX_timestamp*1000
+    time = UNIX_timestamp
 
   # request json data
   jqxhr = $.getJSON( json_route, (data) ->
