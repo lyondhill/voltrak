@@ -23,6 +23,9 @@ $ ->
     xaxis:
       mode: 'time'
       tickDecimals: 0
+      timezone: 'browser'
+      tickFormatter: (val, axis) ->
+        new Date(val);
 
   # build plot
   plotFlot = ->
@@ -72,9 +75,9 @@ $ ->
           $("#tooltip").remove()
           x = item.datapoint[0].toFixed(2)
           y = item.datapoint[1].toFixed(2)
-          time = new Date(x);
+          time = new Date(x*1000);
 
-          showTooltip item.pageX, item.pageY, "#{y} at #{time.getHours()}:#{time.getMinutes()}"
+          showTooltip item.pageX, item.pageY, "#{y}"
       else
         $("#tooltip").remove()
         previousPoint = null
