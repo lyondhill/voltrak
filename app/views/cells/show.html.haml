@@ -19,7 +19,7 @@
               %i.icon-bolt
               Voltage
         %tbody
-          - @cell.reports.each_with_index do |r,i|
+          - @reports.each_with_index do |r,i|
             %tr
               %td= i
               %td= r.report_time.strftime('%a %b %d %l:%M:%S %P')

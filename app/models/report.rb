@@ -12,8 +12,6 @@ class Report
   index({ report_time: 1 })
   index({ voltage:     1 })
 
-
-
   class << self
     def to_csv
       new_hash
@@ -37,7 +35,6 @@ class Report
         end
       end
     end
-
 
     def hash
       @h
