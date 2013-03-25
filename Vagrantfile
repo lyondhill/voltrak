@@ -8,7 +8,7 @@ Vagrant::Config.run do |config|
 
   config.vm.box = 'precise64'
 
-  config.vm.network :hostonly, "192.168.77.2"
+  config.vm.network :hostonly, "33.33.33.10"
   config.vm.customize ["modifyvm", :id, "--cpus", 1, "--memory", 512]
   
   config.vm.forward_port 3000, 3000
