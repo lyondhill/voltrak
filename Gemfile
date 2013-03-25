@@ -1,6 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'rails'
+gem 'jquery-rails'
+# gem 'jquery-ui-rails'
+gem 'haml-rails'
+
 ## authentication ##
 # gem 'devise'
 # gem "cancan"
@@ -22,9 +26,9 @@ gem 'clockwork'
 
 # gem 'rabl'          # Rails API language
 # gem 'fnordmetric'
+
 gem "activeadmin-mongoid",  git: "git://github.com/elia/activeadmin-mongoid.git"
 gem 'devise'
-
 gem 'pry-rails'
 
 group :test, :development do
@@ -38,11 +42,7 @@ group :assets do
   # gem "angular-rails"
   # gem 'batman-rails'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'haml-rails'
-  # gem 'jquery-rails'
-  # gem 'jquery-ui-rails'
   # gem 'normalize-rails'
-  # gem 'responders'
   gem 'sass-rails',   '~> 3.2.3'
   gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
   gem 'twitter-bootstrap-rails'
@@ -52,17 +52,5 @@ group :assets do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
-
   gem 'uglifier', '>= 1.0.3'
 end
-
-gem 'jquery-rails'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'debugger'
