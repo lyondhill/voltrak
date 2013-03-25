@@ -7,7 +7,7 @@
       back to cell #{@cell.uid}'s frame
 
   .row
-    .span5#reports.index
+    .span4#reports.index
       %table.table.table-condensed.table-hover
         %thead
           %tr
@@ -22,10 +22,10 @@
           - @reports.each_with_index do |r,i|
             %tr
               %td= i
-              %td= r.report_time.strftime('%a %b %d %l:%M:%S %P')
-              %td= r.voltage
+              %td{ title: r.report_time.strftime('%a %b %d at %l:%M:%S %P')}= r.report_time.strftime('%l:%M %P (%m/%d/%y)')
+              %td{ title: r.voltage}= truncate(r.voltage.to_s, length: 8)
     
-    .span6.offset1
+    .span7.pull-right
       .row
         #cell_flot{style: 'width:600px; height:300px', data: {'json-route' => get_report_plant_frame_cell_url(@cell.frame.plant, @cell.frame, @cell)}}
       .row
