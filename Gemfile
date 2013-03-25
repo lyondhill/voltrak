@@ -44,7 +44,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   # gem 'normalize-rails'
   gem 'sass-rails',   '~> 3.2.3'
-  gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+  gem 'less-rails' #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
   gem 'twitter-bootstrap-rails'
 
   # gem 'haml_assets' # allows .haml to be read from the asset pipeline (for JS frameworks)
