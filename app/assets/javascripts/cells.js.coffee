@@ -1,82 +1,119 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-
 $ ->
 
-  dataset         = null
-  json_route      = $("#cell_flot").data('json-route')
-  plot_options    =
+  spinnerOptions = 
+    lines:      9
+    length:     4
+    width:      6
+    radius:     10
+    corners:    1
+    rotate:     0
+    color:      '#000'
+    speed:      1
+    trail:      50
+    shadow:     false
+    hwaccel:    false
+    className:  'spinner'
+    zIndex:     2e9
+    top:        'auto'
+    left:       'auto'
+
+  target  = $('.chart');
+  spinner = new Spinner(spinnerOptions).spin();
+  target.append(spinner.el);
+
+  # i               = 0
+  # choices         = $("#choices")
+  # colors          = []
+  datasets        = null
+  canvas          = $("#cells-flot")
+  jsonRoute       = canvas.data('json-route')
+
+  plotOptions =
     series:
       lines:
         show: true
       points:
         show: false
+
     grid:
       hoverable: true
+
     yaxis:
       min: 0
+
     xaxis:
       mode: 'time'
       tickDecimals: 0
       timezone: 'browser'
       tickFormatter: (val, axis) ->
-        new Date(val);
+        # console.log new Date(val).toString()
+        # console.log new Date(val).toDateString()
+        # console.log new Date(val).toLocaleString()
+        # console.log new Date(val).toLocaleTimeString()
+        # console.log new Date(val).toLocaleDateString()
 
-  # build plot
-  plotFlot = ->
-    # plot = $.plot $("#cell_flot"), dataset, plot_options
-    plot = $.plot($("#cell_flot"), [data: dataset[0][0]['data']], plot_options )
+        new Date(val).toLocaleString()
 
-  showTooltip = (x, y, contents) ->
-    $("<div id='tooltip'>#{contents}</div>").css(
-      position:           "absolute"
-      display:            "none"
-      top:                y - 10
-      left:               x + 15
-      color:              "#FFFFFF"
-      border:             "1px solid #333333"
-      padding:            "2px"
-      "background-color": "#111111"
-      opacity:            1
-    ).appendTo("body").fadeIn 250
-
-  formatTime = (UNIX_timestamp) ->
-    time = UNIX_timestamp*1000
+    legend: 
+      show: false
 
   # request json data
-  jqxhr = $.getJSON( json_route, (data) ->
-    dataset = data
-
+  jqxhr = $.getJSON( jsonRoute, (data) ->
+    datasets = data
   ).success(->
   ).error(->
     console.log "error"
   ).complete(->
-
-    # read returned JSON
-    $.each dataset, (k, v) ->
-      # format time to readable
-      $.each v[k]['data'], (k,v) ->
-        v[0] = formatTime v[0]
-
-    previousPoint = null
-    $("#cell_flot").bind "plothover", (event, pos, item) ->
-
-      $("#x").text pos.x.toFixed(2)
-      $("#y").text pos.y.toFixed(2)
-
-      if item
-        unless previousPoint is item.dataIndex
-          previousPoint = item.dataIndex
-          $("#tooltip").remove()
-          x = item.datapoint[0].toFixed(2)
-          y = item.datapoint[1].toFixed(2)
-          time = new Date(x*1000);
-
-          showTooltip item.pageX, item.pageY, "#{y}"
-      else
-        $("#tooltip").remove()
-        previousPoint = null
-
-    plotFlot()
+    plotData()
   )
+
+  # select all choices and plot
+  $('#btn-refresh').on 'click', (event) ->
+    $.getJSON( jsonRoute, (data) ->
+      datasets = data
+    ).success(->
+    ).error(->
+      console.log "error"
+    ).complete(->
+      console.log "REFRESHED!"
+      plotData()
+    )
+
+  # build plot
+  plotData = ->
+    data = [datasets[0][0]['data']]
+
+    # create the tool tips
+    prevPoint = null
+    canvas.bind "plothover", (event, pos, item) ->
+      if item
+        $("#x").text pos.x.toFixed(2)
+        $("#y").text pos.y.toFixed(2)
+
+        unless prevPoint is item.dataIndex
+          $("#tooltip").remove()
+          prevPoint   = item.dataIndex
+
+          data        = item.datapoint[1].toFixed(2)
+          time        = new Date(item.datapoint[0]).toLocaleString()
+          
+          # configure and show the tooltip
+          tooltipOptions = 
+            position:           'absolute'
+            display:            'none'
+            top:                (item.pageY - 10)
+            left:               (item.pageX + 15)
+            color:              '#FFFFFF'
+            border:             'none'
+            padding:            '2px'
+            "background-color": '#111111'
+            opacity:            1 
+
+          content = "Voltage: #{data} (#{time})"
+          $("<div id='tooltip'>#{content}</div>").css(tooltipOptions).appendTo("body").fadeIn 250
+
+      else
+        prevPoint = null
+        $("#tooltip").remove()
+
+    plot = $.plot canvas, data, plotOptions

@@ -2,6 +2,7 @@
 %html(lang="en")
   %head
     = render 'shared/head'
+    = javascript_include_tag "application"
 
   %body
     %header
@@ -16,4 +17,4 @@
     -# Javascripts
     -# \==================================================
     -# Placed at the end of the document so the pages load faster
-    = javascript_include_tag "application"
+    / = javascript_include_tag "application"

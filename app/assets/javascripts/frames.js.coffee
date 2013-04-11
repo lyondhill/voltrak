@@ -1,7 +1,3 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-
 $ ->
 
   spinnerOptions = 
@@ -31,6 +27,7 @@ $ ->
   colors          = []
   datasets        = null
   canvas          = $("#frames-flot")
+  jsonRoute       = canvas.data('json-route')
 
 
   plotOptions =
@@ -63,7 +60,7 @@ $ ->
       show: false
 
   # request json data on initial page load
-  jqxhr = $.getJSON( canvas.data('json-route') , (data) ->
+  jqxhr = $.getJSON( jsonRoute , (data) ->
     datasets = data
   ).success(->
   ).error(->
@@ -74,11 +71,8 @@ $ ->
 
   # load new json data based on time frame
   $('#timeframe-select').find('a').on 'ajax:success', () ->
-    console.log "PLOT TIMEFRAME"
     $('#timeframe').text($(this).text())
     $('#timeframe').closest('button').data('timeframe', $(this).data('timeframe'))
-
-    console.log arguments
 
     datasets = arguments[1]
     plotAccordingToChoices()
@@ -116,7 +110,8 @@ $ ->
   # setInterval pollData, 300000
 
   plotData = ->
-    # read returned JSON
+    
+    # build choices
     $.each datasets, (k, v) ->
       # console.log v[k]["data"]
       

@@ -1,3 +1,5 @@
+= javascript_include_tag "cells"
+
 #cells.cell
   %h1.page-header
     %i.icon-pause
@@ -31,5 +33,5 @@
     .span7.pull-right
 
       .row
-        #cell_flot{style: 'width:540px; height:300px', data: {'json-route' => get_report_plant_frame_cell_url(@cell.frame.plant, @cell.frame, @cell)}}
+        #cells-flot{style: 'width:540px; height:300px', data: {'json-route' => get_report_plant_frame_cell_url(@cell.frame.plant, @cell.frame, @cell)}}
       
