@@ -26,17 +26,12 @@ $ ->
   target.append(spinner.el);
 
 
-
-
-
-
-
-
   i               = 0
   choices         = $("#choices")
   colors          = []
   datasets        = null
   canvas          = $("#cells-flot")
+  
 
   plotOptions =
     series:

@@ -6,20 +6,16 @@ $ ->
 
   dataset         = null
   json_route      = $("#cell_flot").data('json-route')
-
   plot_options    =
     series:
       lines:
         show: true
       points:
         show: false
-
     grid:
       hoverable: true
-
     yaxis:
       min: 0
-
     xaxis:
       mode: 'time'
       tickDecimals: 0
@@ -46,7 +42,7 @@ $ ->
     ).appendTo("body").fadeIn 250
 
   formatTime = (UNIX_timestamp) ->
-    time = UNIX_timestamp
+    time = UNIX_timestamp*1000
 
   # request json data
   jqxhr = $.getJSON( json_route, (data) ->
