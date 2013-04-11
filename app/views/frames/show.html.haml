@@ -39,7 +39,7 @@
                 %i.icon-bolt
                 = number_with_precision(c.last_voltage, :precision => 2)
   
-  .span9.chart
+  .span9.chart.pull-right
     -# choices are build by flot
     #choices
 
@@ -52,4 +52,4 @@
         %i.icon-remove
         Deselect All
 
-    #frames-flot{ style: 'float:right; width:600px; height:300px;', data: { 'json-route' => get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 1}) } }
+    #frames-flot{ style: 'width:600px; height:300px;', data: { 'json-route' => get_cell_reports_plant_frame_url(@frame.plant, @frame, {timeframe: 1}) } }

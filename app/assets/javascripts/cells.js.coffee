@@ -116,4 +116,5 @@ $ ->
         prevPoint = null
         $("#tooltip").remove()
 
+    spinner.stop()
     plot = $.plot canvas, data, plotOptions
