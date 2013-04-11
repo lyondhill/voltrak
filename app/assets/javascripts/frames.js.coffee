@@ -30,8 +30,8 @@ $ ->
   choices         = $("#choices")
   colors          = []
   datasets        = null
-  canvas          = $("#cells-flot")
-  
+  canvas          = $("#frames-flot")
+
 
   plotOptions =
     series:
@@ -51,7 +51,13 @@ $ ->
       tickDecimals: 0
       timezone: 'browser'
       tickFormatter: (val, axis) ->
-        new Date(val);
+        # console.log new Date(val).toString()
+        # console.log new Date(val).toDateString()
+        # console.log new Date(val).toLocaleString()
+        # console.log new Date(val).toLocaleTimeString()
+        # console.log new Date(val).toLocaleDateString()
+
+        new Date(val).toLocaleString()
 
     legend: 
       show: false
@@ -68,17 +74,34 @@ $ ->
 
   # load new json data based on time frame
   $('#timeframe-select').find('a').on 'ajax:success', () ->
+    console.log "PLOT TIMEFRAME"
     $('#timeframe').text($(this).text())
     $('#timeframe').closest('button').data('timeframe', $(this).data('timeframe'))
+
+    console.log arguments
 
     datasets = arguments[1]
     plotAccordingToChoices()
 
+  # select all choices and plot
+  $('#btn-selectall').on 'click', (event) ->
+    # console.log "SELECT ALL"
+    choices.find('input').prop('checked', 'checked')
+    plotAccordingToChoices()
+
+  # deselect all choices and plot
+  $('#btn-deselectall').on 'click', (event) ->
+    # console.log "DESELECT ALL"
+    choices.find('input').removeAttr('checked')
+    plotAccordingToChoices()
+
+  
+  # poll for data
   pollData = ->
     route     = $('#timeframe').closest('button').data('poll')
     timeframe = $('#timeframe').closest('button').data('timeframe')
 
-    console.log "POLLING: %o %o", route, timeframe
+    # console.log "POLLING: %o %o", route, timeframe
 
     jqxhr = $.getJSON( "#{route}?timeframe=#{timeframe}" , (data) ->
       datasets = data
@@ -90,76 +113,73 @@ $ ->
       plotAccordingToChoices()
     )
 
-
-  # Very temporary so they dont get crazy dates.
-  resetLocation = ->
-    location.reload()
-
-  setInterval resetLocation, 300000
-
-  $('#btn-selectall').on 'click', (event) ->
-    choices.find('input').attr('checked', 'checked')
-    plotAccordingToChoices()
-
-
-  $('#btn-deselectall').on 'click', (event) ->
-    choices.find('input').removeAttr('checked')
-    plotAccordingToChoices()
+  # setInterval pollData, 300000
 
   plotData = ->
     # read returned JSON
     $.each datasets, (k, v) ->
-      #insert checkboxes
-      label = $("<label for='id#{k}'>#{v[k].label}</label>")
-      input = $("<input type='checkbox' name='#{k}' checked='checked' id='id#{k}'>")
-      icon  = "<i class='icon-pause'></i>"
-
-      choices.append(label.append(input, icon))
-      
-      input.on 'change', (event) ->
-        plotAccordingToChoices()
-
-      # format time to readable
-      # $.each v[k]["data"], (k,v) ->
-      #   v[0] = formatTime v[0]
-
       # console.log v[k]["data"]
       
+      #insert checkboxes
+      label = $("<label for='id#{k}'>Cell #{v[k].label}</label>")
+      input = $("<input type='checkbox' name='#{k}' checked='checked' id='id#{k}' />")
+      choices.append(label.append(input))
+      
+      input.on 'change', (event) -> plotAccordingToChoices()
+
       # hard-code colors so they don't change as you toggle them on/off
-      v[k].color = i
-      ++i
+      v[k].color = i; ++i
 
-    previousPoint = null
+    # create the tool tips
+    prevPoint = null
     canvas.bind "plothover", (event, pos, item) ->
-
-      $("#x").text pos.x.toFixed(2)
-      $("#y").text pos.y.toFixed(2)
-
       if item
-        unless previousPoint is item.dataIndex
-          previousPoint = item.dataIndex
-          $("#tooltip").remove()
-          y = item.datapoint[1].toFixed(2)
-          time = new Date(item.datapoint[0]);
-          # Not tredding on your toes. just listening to suggestions.
-          showTooltip item.pageX, item.pageY, item.series.label + " at #{time} = #{y}", datasets[item['seriesIndex']][item['seriesIndex']]['color']
+        $("#x").text pos.x.toFixed(2)
+        $("#y").text pos.y.toFixed(2)
 
-          # showTooltip item.pageX, item.pageY, item.series.label + " of #{x} = #{y}", datasets[item['seriesIndex']][item['seriesIndex']]['color']
+        unless prevPoint is item.dataIndex
+          $("#tooltip").remove()
+          prevPoint   = item.dataIndex
+
+          data        = item.datapoint[1].toFixed(2)
+          time        = new Date(item.datapoint[0]).toLocaleString()
+          
+          # configure and show the tooltip
+          tooltipOptions = 
+            position:           'absolute'
+            display:            'none'
+            top:                (item.pageY - 10)
+            left:               (item.pageX + 15)
+            color:              '#FFFFFF'
+            border:             'none'
+            padding:            '2px'
+            "background-color": '#111111' #datasets[item['seriesIndex']][item['seriesIndex']]['color']
+            opacity:            1 
+
+          content = "Cell #{item.series.label}: #{data} (#{time})"
+          $("<div id='tooltip'>#{content}</div>").css(tooltipOptions).appendTo("body").fadeIn 250
+
       else
+        prevPoint = null
         $("#tooltip").remove()
-        previousPoint = null
 
     plotAccordingToChoices()
 
 
   # build plot
   plotAccordingToChoices = ->
+    console.log "PLOT CHOICES: %o", choices
+
     resetFlot()
 
     data = []
     
     choices.find('input:checked').each ->
+      
       key = $(this).attr("name")
+
+      console.log "HERE: %o", key, datasets
+      console.log datasets[key][key]
 
       data.push datasets[key][key] if key and datasets[key][key]
 
@@ -180,21 +200,3 @@ $ ->
     console.log "RESET"
     $.plot(canvas, [], plotOptions)
 
-  # show flot tooltip
-  showTooltip = (x, y, contents, color) ->
-    $("<div id='tooltip'>#{contents}</div>").css(
-      position:           "absolute"
-      display:            "none"
-      top:                y - 10
-      left:               x + 15
-      color:              "#FFFFFF"
-      border:             "1px solid #333333"
-      padding:            "2px"
-      "background-color": "#111111"
-      opacity:            1
-    ).appendTo("body").fadeIn 250
-
-  # format UNIX times
-  formatTime = (UNIX_timestamp) ->
-    # console.log "FORMAT TIME"
-    time = UNIX_timestamp.toFixed(2)
