@@ -15,6 +15,19 @@ class Cell
 
   belongs_to :frame, index: true
 
+  ## methods ##
+  class << self
+    def find_by_slug(slug)
+      find(slug)
+    rescue
+      where(uid: slug).first
+    end
+
+    def find_by_slug!(slug)
+      find_by_slug(slug) || raise(Mongoid::Errors::DocumentNotFound.new(self, { slug: slug }))
+    end
+  end
+
   def json_reports(days = 1)
     MultiJson.dump([{'0' => reports_hash(days)}])
   end

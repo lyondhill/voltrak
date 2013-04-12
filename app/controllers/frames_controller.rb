@@ -1,7 +1,7 @@
 class FramesController < ApplicationController
 
   def show
-    @frame = Frame.find(params[:id])
+    @frame = Frame.find_by_slug!(params[:id])
     @cells = @frame.cells
 
     # fnordmetric

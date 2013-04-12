@@ -2,7 +2,7 @@
   %h1.page-header
     %i.icon-pause
     = @cell.uid     
-    = link_to plant_frame_url(@cell.frame.plant, @cell.frame), class: 'btn btn-link' do
+    = link_to plant_frame_url(@cell.frame.plant.name, @cell.frame.name), class: 'btn btn-link' do
       %i.icon-caret-left
       back to cell #{@cell.uid}'s frame
     %button.btn.btn-primary.btn-mini#btn-refresh.pull-right
