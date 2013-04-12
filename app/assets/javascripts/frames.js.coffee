@@ -75,19 +75,22 @@ $ ->
     $('#timeframe').closest('button').data('timeframe', $(this).data('timeframe'))
 
     datasets = arguments[1]
-    plotAccordingToChoices()
+    # plotAccordingToChoices()
+    plotData()
 
   # select all choices and plot
   $('#btn-selectall').on 'click', (event) ->
     # console.log "SELECT ALL"
     choices.find('input').prop('checked', 'checked')
-    plotAccordingToChoices()
+    # plotAccordingToChoices()
+    plotData()
 
   # deselect all choices and plot
   $('#btn-deselectall').on 'click', (event) ->
     # console.log "DESELECT ALL"
     choices.find('input').removeAttr('checked')
-    plotAccordingToChoices()
+    # plotAccordingToChoices()
+    plotData()
 
   
   # poll for data
@@ -104,10 +107,11 @@ $ ->
     ).error(->
       console.log "polling error"
     ).complete(->
-      plotAccordingToChoices()
+      # plotAccordingToChoices()
+      plotData()
     )
 
-  # setInterval pollData, 300000
+  setInterval pollData, 300000
 
   plotData = ->
     

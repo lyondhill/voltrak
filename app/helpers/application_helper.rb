@@ -33,7 +33,7 @@ module ApplicationHelper
   def setVoltStatus avg, current
     deviation = (avg - current).abs
     if avg < 1.0 or current < 0.2
-      'info'
+      'success'
     elsif deviation < 0.5
       'success'
     elsif deviation < 1.0
