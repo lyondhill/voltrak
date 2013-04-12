@@ -75,22 +75,19 @@ $ ->
     $('#timeframe').closest('button').data('timeframe', $(this).data('timeframe'))
 
     datasets = arguments[1]
-    # plotAccordingToChoices()
-    plotData()
+    plotAccordingToChoices()
 
   # select all choices and plot
   $('#btn-selectall').on 'click', (event) ->
     # console.log "SELECT ALL"
     choices.find('input').prop('checked', 'checked')
-    # plotAccordingToChoices()
-    plotData()
+    plotAccordingToChoices()
 
   # deselect all choices and plot
   $('#btn-deselectall').on 'click', (event) ->
     # console.log "DESELECT ALL"
     choices.find('input').removeAttr('checked')
-    # plotAccordingToChoices()
-    plotData()
+    plotAccordingToChoices()
 
   
   # poll for data
@@ -107,11 +104,10 @@ $ ->
     ).error(->
       console.log "polling error"
     ).complete(->
-      # plotAccordingToChoices()
-      plotData()
+      plotAccordingToChoices()
     )
 
-  setInterval pollData, 300000
+  # setInterval pollData, 300000
 
   plotData = ->
     
@@ -120,7 +116,7 @@ $ ->
       # console.log v[k]["data"]
       
       #insert checkboxes
-      label = $("<label for='id#{k}'>#{v[k].label}</label>")
+      label = $("<label for='id#{k}'>Cell #{v[k].label}</label>")
       input = $("<input type='checkbox' name='#{k}' checked='checked' id='id#{k}' />")
       choices.append(label.append(input))
       
