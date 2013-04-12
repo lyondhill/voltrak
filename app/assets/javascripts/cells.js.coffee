@@ -19,7 +19,7 @@ $ ->
 
   target  = $('.chart');
   spinner = new Spinner(spinnerOptions).spin();
-  target.append(spinner.el);
+  # target.append(spinner.el);
 
   # i               = 0
   # choices         = $("#choices")
