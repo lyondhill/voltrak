@@ -116,7 +116,7 @@ $ ->
       # console.log v[k]["data"]
       
       #insert checkboxes
-      label = $("<label for='id#{k}'>Cell #{v[k].label}</label>")
+      label = $("<label for='id#{k}'>#{v[k].label}</label>")
       input = $("<input type='checkbox' name='#{k}' checked='checked' id='id#{k}' />")
       choices.append(label.append(input))
       
