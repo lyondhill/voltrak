@@ -173,12 +173,9 @@ $ ->
       
       key = $(this).attr("name")
 
-      console.log "HERE: %o", key, datasets
-      console.log datasets[key][key]
-
       data.push datasets[key][key] if key and datasets[key][key]
 
-    if data.length > 0
+    if data && data.length > 0
       console.log "PLOT #{data}"
 
       spinner.stop()
@@ -190,6 +187,8 @@ $ ->
       $.each series, (i,e) ->
         colors.push series[i].color
         $($(choices).find('label').get(i)).css('background-color', colors[i])
+    else 
+      spinner.stop()
 
   resetFlot = () ->
     console.log "RESET"
