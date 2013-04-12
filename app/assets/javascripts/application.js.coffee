@@ -13,5 +13,5 @@
 # 
 # APP
 #= active_admin
-# require_tree .
+#= require_tree .
 #= require_self
