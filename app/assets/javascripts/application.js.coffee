@@ -13,5 +13,6 @@
 # 
 # APP
 #= active_admin
-#= require_tree .
+#= require frames
+#= require cells
 #= require_self
