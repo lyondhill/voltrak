@@ -8,7 +8,7 @@ class CellsController < ApplicationController
 
   def get_report
     respond_to do |format|
-      format.json { render json: Cell.find(params[:id]).json_reports(params[:days] || 1) }
+      format.json { render json: Cell.find_by_slug!(params[:id]).json_reports(params[:days] || 1) }
     end
   end
 

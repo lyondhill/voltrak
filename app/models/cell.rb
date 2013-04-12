@@ -3,8 +3,8 @@ class Cell
   
   STATUSES = [:errored, :active, :inactive]
 
-  field :status, type: Symbol
   field :uid
+  field :status, type: Symbol
 
   validates_inclusion_of :status, in: STATUSES
 
