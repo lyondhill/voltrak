@@ -30,8 +30,9 @@
       %ul#cells.index
         - @frame.cells.each do |c|
           %li
-            = link_to plant_frame_cell_url(c.frame.plant, c.frame, c) do
-              %span.label{class: "label-#{setVoltStatus(c.frame.averate_cell_voltage, c.last_voltage)}"}
+            - avg = @frame.averate_cell_voltage
+            = link_to plant_frame_cell_url(@frame.plant, @frame, c) do
+              %span.label{class: "label-#{setVoltStatus(avg, c.last_voltage)}"}
                 = "#{c.uid}"
                 |
                 %i.icon-bolt
