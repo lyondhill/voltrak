@@ -4,7 +4,7 @@ class Report
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  belongs_to :cell
+  belongs_to :cell, index: true
 
   field :report_time, type: Time, default: Time.now
   field :voltage, type: Float, default: 0.0  

@@ -13,7 +13,7 @@ class Cell
   has_many :thirty_minute_reports
   has_many :hourly_reports
 
-  belongs_to :frame
+  belongs_to :frame, index: true
 
   def json_reports(days = 1)
     MultiJson.dump([{'0' => reports_hash(days)}])

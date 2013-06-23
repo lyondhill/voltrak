@@ -5,7 +5,7 @@ class Frame
   field :name
 
   has_many :cells
-  belongs_to :plant
+  belongs_to :plant, index: true
 
   # fnordmetric
   # def trigger_view_event
