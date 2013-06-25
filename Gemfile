@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails'
 gem 'jquery-ui-rails'
-gem 'jquery-rails'
+# gem 'jquery-rails'
 gem 'haml-rails'
 
 ## authentication ##

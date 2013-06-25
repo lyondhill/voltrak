@@ -242,7 +242,6 @@ DEPENDENCIES
   devise
   draper
   haml-rails
-  jquery-rails
   jquery-ui-rails
   less-rails
   mongoid (~> 3.0.0)
