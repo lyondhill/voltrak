@@ -51,8 +51,10 @@ $ ->
         day   = date.getDate()
         month = date.getMonth()
         year  = date.getFullYear().toString().substring(2)
+        hours     = date.getHours()
+        minutes   = date.getMinutes()
 
-        "#{day}/#{month}/#{year}"
+        "#{day}/#{month}/#{year} #{hours}:#{minutes}"
 
     legend: 
       show: false

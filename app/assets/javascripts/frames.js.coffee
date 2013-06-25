@@ -48,14 +48,15 @@ $ ->
       tickDecimals: 0
       timezone: 'browser'
       tickFormatter: (val, axis) ->
-        # date  = new Date(val)
+        date  = new Date(val)
 
-        # day   = date.getDate()
-        # month = date.getMonth()
-        # year  = date.getFullYear().toString().substring(2)
+        day       = date.getDate()
+        month     = date.getMonth()
+        year      = date.getFullYear().toString().substring(2)
+        hours     = date.getHours()
+        minutes   = date.getMinutes()
 
-        # "#{day}/#{month}/#{year}"
-        new Date(val).toLocaleString()
+        "#{day}/#{month}/#{year} #{hours}:#{minutes}"
 
     legend: 
       show: false
