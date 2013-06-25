@@ -46,15 +46,17 @@ $ ->
       tickDecimals: 0
       timezone: 'browser'
       tickFormatter: (val, axis) ->
-        date  = new Date(val)
+        date      = new Date(val)
 
-        day   = date.getDate()
-        month = date.getMonth()
-        year  = date.getFullYear().toString().substring(2)
+        day       = date.getDate()
+        month     = date.getMonth()
+        year      = date.getFullYear().toString().substring(2)
         hours     = date.getHours()
         minutes   = date.getMinutes()
 
-        "#{day}/#{month}/#{year} #{hours}:#{minutes}"
+        if minutes <= 10 then minutes = "0#{minutes}"
+
+        "#{day}/#{month}/#{year} <br/> #{hours}:#{minutes}"
 
     legend: 
       show: false
