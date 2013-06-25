@@ -3,8 +3,8 @@ class Cell
   
   STATUSES = [:errored, :active, :inactive]
 
-  field :uid
   field :status, type: Symbol
+  field :uid
 
   validates_inclusion_of :status, in: STATUSES
 
@@ -14,19 +14,6 @@ class Cell
   has_many :hourly_reports
 
   belongs_to :frame, index: true
-
-  ## methods ##
-  class << self
-    def find_by_slug(slug)
-      find(slug)
-    rescue
-      where(uid: slug).first
-    end
-
-    def find_by_slug!(slug)
-      find_by_slug(slug) || raise(Mongoid::Errors::DocumentNotFound.new(self, { slug: slug }))
-    end
-  end
 
   def json_reports(days = 1)
     MultiJson.dump([{'0' => reports_hash(days)}])

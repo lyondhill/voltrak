@@ -48,17 +48,13 @@ $ ->
       tickDecimals: 0
       timezone: 'browser'
       tickFormatter: (val, axis) ->
-        date      = new Date(val)
+        # console.log new Date(val).toString()
+        # console.log new Date(val).toDateString()
+        # console.log new Date(val).toLocaleString()
+        # console.log new Date(val).toLocaleTimeString()
+        # console.log new Date(val).toLocaleDateString()
 
-        day       = date.getDate()
-        month     = date.getMonth()
-        year      = date.getFullYear().toString().substring(2)
-        hours     = date.getHours()
-        minutes   = date.getMinutes()
-
-        if minutes <= 10 then minutes = "0#{minutes}"
-
-        "#{day}/#{month}/#{year} <br/> #{hours}:#{minutes}"
+        new Date(val).toLocaleString()
 
     legend: 
       show: false

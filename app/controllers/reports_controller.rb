@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
 
   def show
-    @report = Report.find_by_slug!(params[:id])
+    @report = Report.find(params[:id])
   end
 
   def index

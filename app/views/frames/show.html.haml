@@ -1,10 +1,8 @@
-= javascript_include_tag "frames"
-
 #frames.frame
   %h1.page-header
     %i.icon-th
     Frame:     
-    = link_to plant_url(@frame.plant.name), class: 'btn btn-link' do
+    = link_to plant_url(@frame.plant), class: 'btn btn-link' do
       %i.icon-caret-left
       back to #{@frame.plant.name}'s frames
 

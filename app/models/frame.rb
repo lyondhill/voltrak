@@ -11,19 +11,6 @@ class Frame
   # def trigger_view_event
   #   FNORD_METRIC.event(attributes.merge(_type: :frame_temp))
   # end
-
-  ## methods ##
-  class << self
-    def find_by_slug(slug)
-      find(slug)
-    rescue
-      where(name: slug).first
-    end
-
-    def find_by_slug!(slug)
-      find_by_slug(slug) || raise(Mongoid::Errors::DocumentNotFound.new(self, { slug: slug }))
-    end
-  end
   
   def json_reports(days = 1)
     arr = []

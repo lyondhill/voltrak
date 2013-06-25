@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails'
-gem 'jquery-ui-rails'
-gem "jquery-rails", "2.3.0"
+gem 'jquery-rails'
+# gem 'jquery-ui-rails'
 gem 'haml-rails'
 
 ## authentication ##
