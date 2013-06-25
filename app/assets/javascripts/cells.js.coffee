@@ -46,13 +46,13 @@ $ ->
       tickDecimals: 0
       timezone: 'browser'
       tickFormatter: (val, axis) ->
-        # console.log new Date(val).toString()
-        # console.log new Date(val).toDateString()
-        # console.log new Date(val).toLocaleString()
-        # console.log new Date(val).toLocaleTimeString()
-        # console.log new Date(val).toLocaleDateString()
+        date  = new Date(val)
 
-        new Date(val).toLocaleString()
+        day   = date.getDate()
+        month = date.getMonth()
+        year  = date.getFullYear().toString().substring(2)
+
+        "#{day}/#{month}/#{year}"
 
     legend: 
       show: false
